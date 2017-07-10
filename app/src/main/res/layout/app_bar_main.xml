@@ -15,15 +15,25 @@
             android:scaleType="centerCrop"
             android:src="@drawable/back_drop"/>
 
+        <ImageView
+            android:id="@+id/place_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_place"
+            android:layout_margin="12dp"
+            android:layout_centerVertical="true"
+            android:paddingBottom="12dp"/>
+
         <TextView
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_alignLeft="@id/place_icon"
             android:textColor="#fff"
-            android:textSize="21sp"
+            android:textSize="23sp"
             android:paddingBottom="12dp"
-            android:layout_margin="12dp"
+            android:layout_marginLeft="22dp"
             android:text="san francisco"
             android:textAllCaps="true"
             android:fontFamily="sans-serif"
@@ -38,6 +48,7 @@
             android:paddingTop="12dp"
             android:background="@drawable/scrim"
             android:text="68 F"
+            android:textSize="18sp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
 
@@ -62,5 +73,18 @@
 
         </LinearLayout>
     </RelativeLayout>
+
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="#FF5722"/>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/material_blue_grey_800"/>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
