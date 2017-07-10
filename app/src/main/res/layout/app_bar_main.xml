@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:background="#FF5722"/>
 
-    <HorizontalScrollView
+    <com.example.xialong.funplacesforkids.ui.PagerSlidingTabStrip
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/material_blue_grey_800"/>
