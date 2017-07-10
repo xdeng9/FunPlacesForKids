@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -78,10 +79,19 @@
         android:layout_width="match_parent"
         android:background="#FF5722"/>
 
-    <com.example.xialong.funplacesforkids.ui.PagerSlidingTabStrip
+    <com.example.xialong.funplacesforkids.view.PagerSlidingTabStrip
+        android:id="@+id/activity_tab_media_tabs"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/material_blue_grey_800"/>
+        android:layout_gravity="center"
+        android:background="@color/material_blue_grey_800"
+        app:pstsDividerColor="@android:color/white"
+        app:pstsDividerPadding="20dp"
+        app:pstsTabPaddingLeftRight="30dp"
+        app:pstsDividerWidth="1dp"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsIndicatorColor="#F44336"
+        app:pstsTabTextColor="@android:color/white" />
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
