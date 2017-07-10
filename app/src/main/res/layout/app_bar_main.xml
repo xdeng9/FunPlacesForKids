@@ -24,7 +24,7 @@
             android:textSize="21sp"
             android:paddingBottom="12dp"
             android:layout_margin="12dp"
-            android:text="san francisco, ca"
+            android:text="san francisco"
             android:textAllCaps="true"
             android:fontFamily="sans-serif"
             android:background="@drawable/scrim"/>
