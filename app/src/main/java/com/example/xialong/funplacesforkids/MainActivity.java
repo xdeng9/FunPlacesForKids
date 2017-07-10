@@ -56,11 +56,12 @@ public class MainActivity extends AppCompatActivity implements
             updateLocation(location.getLatitude(), location.getLongitude());
         }
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(this)
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
-                .enableAutoManage(this, this)
+                .addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
                 .build();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onConnected called");
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        mLocationRequest.setInterval(36000); 
+        mLocationRequest.setInterval(36000);
 
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
