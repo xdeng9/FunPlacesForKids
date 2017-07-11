@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onConnected called");
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        mLocationRequest.setInterval(36000);
+        mLocationRequest.setInterval(12000);
 
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
