@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation;
     private MyPagerAdapter adapter;
-    private Toolbar toolbar;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
 
