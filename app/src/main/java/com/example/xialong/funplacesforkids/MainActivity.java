@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.xialong.funplacesforkids.fragment.TabFragment;
 import com.example.xialong.funplacesforkids.util.Util;
+import com.example.xialong.funplacesforkids.util.WeatherUtil;
 import com.example.xialong.funplacesforkids.view.PagerSlidingTabStrip;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,25 +40,29 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,
+        WeatherUtil.Callback{
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
-    private TextView currentLocation;
+    private TextView currentLocation, currentTemperature;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
+    private WeatherUtil weather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        weather = new WeatherUtil(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         currentLocation = (TextView) findViewById(R.id.current_location);
+        currentTemperature = (TextView) findViewById(R.id.temperature);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         Location location = Util.getLocation(MainActivity.this);
         if (location != null) {
             updateLocation(location.getLatitude(), location.getLongitude());
+            weather.execute(location.getLatitude(), location.getLongitude());
         }
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -110,8 +116,16 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void updateWeather(String temperature) {
+        Log.d(TAG, temperature);
+        if(temperature!=null && temperature.length()>0){
+            String[] temps = temperature.split(" ");
+            currentTemperature.setText(temps[1]+"\u00b0"+"F");
+        }
+    }
+
+    @Override
     protected void onStart() {
-        Log.d(TAG, "onStart called");
         super.onStart();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
@@ -145,8 +159,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -157,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Location location = Util.getLocation(MainActivity.this);
                     updateLocation(location.getLatitude(), location.getLongitude());
+                    weather.execute(location.getLatitude(), location.getLongitude());
                 }
                 return;
             }

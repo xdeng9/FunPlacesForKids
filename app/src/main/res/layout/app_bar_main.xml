@@ -44,7 +44,6 @@
             android:textColor="#fff"
             android:layout_marginRight="16dp"
             android:background="@drawable/scrim"
-            android:text="68F"
             android:textSize="18sp"
             android:fontFamily="sans-serif-smallcaps"
             android:layout_centerVertical="true"
