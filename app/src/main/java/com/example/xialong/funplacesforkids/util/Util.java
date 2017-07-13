@@ -51,4 +51,9 @@ public class Util {
         }
         return location;
     }
+
+    public static String formatTemp(String temp){
+        int buffer = (int) Double.parseDouble(temp);
+        return String.valueOf(buffer);
+    }
 }

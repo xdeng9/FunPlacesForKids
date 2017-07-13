@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,40 +14,48 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/back_drop"/>
-
-        <ImageView
-            android:id="@+id/place_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_place"
-            android:layout_marginLeft="12dp"
-            android:layout_centerVertical="true" />
-
-        <TextView
-            android:id="@+id/current_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/place_icon"
-            android:textColor="#fff"
-            android:textSize="23sp"
-            android:text="san francisco"
-            android:textAllCaps="true"
-            android:fontFamily="sans-serif"
-            android:background="@drawable/scrim"/>
+            android:src="@drawable/back_drop" />
 
         <TextView
             android:id="@+id/temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:background="@drawable/scrim"
-            android:textSize="18sp"
             android:fontFamily="sans-serif-smallcaps"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/place_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/temperature"
+            android:layout_marginLeft="12dp"
+            android:paddingBottom="3dp"
+            android:src="@drawable/ic_place" />
+
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/temperature"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:id="@+id/current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/temperature"
+            android:layout_toRightOf="@id/place_icon"
+            android:background="@drawable/scrim"
+            android:fontFamily="sans-serif"
+            android:text="san francisco"
+            android:textAllCaps="true"
+            android:textColor="#fff"
+            android:textSize="23sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,19 +69,21 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Search for places"
-                    android:theme="@style/Autocomplete"/>
+                    android:theme="@style/Autocomplete" />
             </android.support.v7.widget.Toolbar>
 
         </LinearLayout>
     </RelativeLayout>
 
-    <View android:layout_height="1dp"
+    <View
         android:layout_width="match_parent"
-        android:background="#FF5722"/>
+        android:layout_height="1dp"
+        android:background="#FF5722" />
 
     <com.example.xialong.funplacesforkids.view.PagerSlidingTabStrip
         android:id="@+id/activity_tabs"
@@ -83,15 +93,15 @@
         android:background="@color/material_blue_grey_800"
         app:pstsDividerColor="@android:color/white"
         app:pstsDividerPadding="20dp"
-        app:pstsTabPaddingLeftRight="30dp"
         app:pstsDividerWidth="1dp"
-        app:pstsIndicatorHeight="4dp"
         app:pstsIndicatorColor="#F44336"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsTabPaddingLeftRight="30dp"
         app:pstsTabTextColor="@android:color/white" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/activity_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -22,8 +22,10 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.fragment.TabFragment;
 import com.example.xialong.funplacesforkids.util.Util;
 import com.example.xialong.funplacesforkids.util.WeatherUtil;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
+    private ImageView weatherIcon;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         currentLocation = (TextView) findViewById(R.id.current_location);
         currentTemperature = (TextView) findViewById(R.id.temperature);
+        weatherIcon = (ImageView) findViewById(R.id.weather_icon);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
@@ -120,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, temperature);
         if(temperature!=null && temperature.length()>0){
             String[] temps = temperature.split(" ");
-            currentTemperature.setText(temps[1]+"\u00b0"+"F");
+            currentTemperature.setText(Util.formatTemp(temps[1])+"\u00b0"+"F");
+            Glide.with(this).load("http:"+temps[2]).into(weatherIcon);
         }
     }
 
