@@ -16,46 +16,50 @@
             android:scaleType="centerCrop"
             android:src="@drawable/back_drop" />
 
-        <TextView
-            android:id="@+id/temperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/scrim"
-            android:fontFamily="sans-serif-smallcaps"
-            android:textColor="#fff"
-            android:textSize="18sp" />
-
         <ImageView
             android:id="@+id/place_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/temperature"
             android:layout_marginLeft="12dp"
-            android:paddingBottom="3dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_place" />
 
-        <ImageView
-            android:id="@+id/weather_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/temperature"
-            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/temperature"
             android:layout_toRightOf="@id/place_icon"
             android:background="@drawable/scrim"
             android:fontFamily="sans-serif"
             android:text="san francisco"
+            android:layout_centerVertical="true"
             android:textAllCaps="true"
             android:textColor="#fff"
             android:textSize="23sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="16dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+            <TextView
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/scrim"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
