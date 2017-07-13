@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.fragment.TabFragment;
 import com.example.xialong.funplacesforkids.util.Util;
 import com.example.xialong.funplacesforkids.util.WeatherUtil;
@@ -123,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, temperature);
         if(temperature!=null && temperature.length()>0){
             String[] temps = temperature.split(" ");
-            currentTemperature.setText(temps[1]+"\u00b0"+"F");
+            currentTemperature.setText(Util.formatTemp(temps[1])+"\u00b0"+"F");
+            Glide.with(this).load("http:"+temps[2]).into(weatherIcon);
         }
     }
 
