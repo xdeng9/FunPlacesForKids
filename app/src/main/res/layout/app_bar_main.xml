@@ -22,17 +22,26 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_place"
             android:layout_marginLeft="12dp"
-            android:layout_centerVertical="true" />
+            android:paddingBottom="3dp"
+            android:layout_above="@id/temperature" />
+
+        <ImageView
+            android:id="@+id/weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_above="@id/temperature"
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:id="@+id/current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@id/place_icon"
             android:textColor="#fff"
             android:textSize="23sp"
             android:text="san francisco"
+            android:layout_above="@id/temperature"
             android:textAllCaps="true"
             android:fontFamily="sans-serif"
             android:background="@drawable/scrim"/>

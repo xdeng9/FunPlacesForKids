@@ -22,6 +22,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xialong.funplacesforkids.fragment.TabFragment;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
+    private ImageView weatherIcon;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         currentLocation = (TextView) findViewById(R.id.current_location);
         currentTemperature = (TextView) findViewById(R.id.temperature);
+        weatherIcon = (ImageView) findViewById(R.id.weather_icon);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
