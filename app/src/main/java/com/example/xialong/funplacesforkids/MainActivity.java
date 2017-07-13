@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements
         if(temperature!=null && temperature.length()>0){
             String[] temps = temperature.split(" ");
             currentTemperature.setText(Util.formatTemp(temps[1])+"\u00b0"+"F");
-            Glide.with(this).load("http:"+temps[2]).into(weatherIcon);
+            Glide.with(this).load("http:"+temps[2]).centerCrop().into(weatherIcon);
         }
     }
 
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements
             add("Museums");
             add("Indoor Recreation");
             add("Parks");
-            add("Bowling Alleys");
+            add("Zoos");
             add("Hiking Trails");
         }};
 
