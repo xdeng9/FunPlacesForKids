@@ -174,8 +174,13 @@ public class MainActivity extends AppCompatActivity implements
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Location location = Util.getLocation(MainActivity.this);
-                    updateLocation(location.getLatitude(), location.getLongitude());
-                    weather.execute(location.getLatitude(), location.getLongitude());
+                    if(location != null){
+                        updateLocation(location.getLatitude(), location.getLongitude());
+                        weather.execute(location.getLatitude(), location.getLongitude());
+                    }else{
+                        updateLocation(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
+                        weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
+                    }
                 }
                 return;
             }
