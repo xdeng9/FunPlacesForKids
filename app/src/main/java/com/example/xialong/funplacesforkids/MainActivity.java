@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -83,11 +82,7 @@ public class MainActivity extends AppCompatActivity implements
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
         checkPermission();
-        Location location = Util.getLocation(MainActivity.this);
-        if (location != null) {
-            updateLocation(location.getLatitude(), location.getLongitude());
-            weather.execute(location.getLatitude(), location.getLongitude());
-        }
+        //updateLocation(Util.getLocation(MainActivity.this));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -115,13 +110,19 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    private void updateLocation(double lat, double lon) {
-        currentLocation.setText(Util.getCity(this, lat, lon));
+    private void updateLocation(Location location) {
+        if(location != null){
+            currentLocation.setText(Util.getCity(this, location.getLatitude(), location.getLongitude()));
+            weather.execute(location.getLatitude(), location.getLongitude());
+        }else{
+            currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
+            weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
+        }
+
     }
 
     @Override
     public void updateWeather(String temperature) {
-        Log.d(TAG, temperature);
         if(temperature!=null && temperature.length()>0){
             String[] temps = temperature.split(" ");
             currentTemperature.setText(Util.formatTemp(temps[1])+"\u00b0"+"F");
@@ -173,14 +174,7 @@ public class MainActivity extends AppCompatActivity implements
             case REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Location location = Util.getLocation(MainActivity.this);
-                    if(location != null){
-                        updateLocation(location.getLatitude(), location.getLongitude());
-                        weather.execute(location.getLatitude(), location.getLongitude());
-                    }else{
-                        updateLocation(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
-                        weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
-                    }
+                    updateLocation(Util.getLocation(MainActivity.this));
                 }
                 return;
             }
@@ -189,14 +183,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        updateLocation(location.getLatitude(), location.getLongitude());
+        updateLocation(location);
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
         private final ArrayList<String> tabNames = new ArrayList<String>() {{
             add("Amusement Parks");
-            add("Aquarims");
+            add("Aquariums");
             add("Museums");
             add("Indoor Recreation");
             add("Parks");

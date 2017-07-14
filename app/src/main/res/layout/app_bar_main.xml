@@ -32,7 +32,6 @@
             android:layout_toRightOf="@id/place_icon"
             android:background="@drawable/scrim"
             android:fontFamily="sans-serif"
-            android:text="san francisco"
             android:layout_centerVertical="true"
             android:textAllCaps="true"
             android:textColor="#fff"
