@@ -2,6 +2,7 @@ package com.example.xialong.funplacesforkids;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -38,6 +39,8 @@ import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.blurry.Blurry;
+
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
-    private ImageView weatherIcon;
+    private ImageView weatherIcon, background;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements
         currentLocation = (TextView) findViewById(R.id.current_location);
         currentTemperature = (TextView) findViewById(R.id.temperature);
         weatherIcon = (ImageView) findViewById(R.id.weather_icon);
+        background = (ImageView) findViewById(R.id.backdrop);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
@@ -81,8 +85,9 @@ public class MainActivity extends AppCompatActivity implements
             Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
+
+        updateLocation(Util.getLocation(MainActivity.this));
         checkPermission();
-        //updateLocation(Util.getLocation(MainActivity.this));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Places.GEO_DATA_API)
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements
             weather.execute(location.getLatitude(), location.getLongitude());
         }else{
             currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
-            weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
+           // weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
         }
 
     }
@@ -183,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        updateLocation(location);
+        //updateLocation(location);
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
