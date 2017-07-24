@@ -2,7 +2,6 @@ package com.example.xialong.funplacesforkids;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -39,20 +38,18 @@ import com.google.android.gms.location.places.Places;
 
 import java.util.ArrayList;
 
-import jp.wasabeef.blurry.Blurry;
-
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        WeatherUtil.Callback{
+        WeatherUtil.Callback {
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
-    private ImageView weatherIcon, background;
+    private ImageView weatherIcon;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -69,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements
         currentLocation = (TextView) findViewById(R.id.current_location);
         currentTemperature = (TextView) findViewById(R.id.temperature);
         weatherIcon = (ImageView) findViewById(R.id.weather_icon);
-        background = (ImageView) findViewById(R.id.backdrop);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
@@ -116,22 +112,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void updateLocation(Location location) {
-        if(location != null){
+        if (location != null) {
             currentLocation.setText(Util.getCity(this, location.getLatitude(), location.getLongitude()));
             weather.execute(location.getLatitude(), location.getLongitude());
-        }else{
+        } else {
             currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
-           // weather.execute(WeatherUtil.SF_LAN, WeatherUtil.SF_LON);
         }
 
     }
 
     @Override
     public void updateWeather(String temperature) {
-        if(temperature!=null && temperature.length()>0){
+        if (temperature != null && temperature.length() > 0) {
             String[] temps = temperature.split(" ");
-            currentTemperature.setText(Util.formatTemp(temps[1])+"\u00b0"+"F");
-            Glide.with(this).load("http:"+temps[2]).centerCrop().into(weatherIcon);
+            currentTemperature.setText(Util.formatTemp(temps[1]) + "\u00b0" + "F");
+            Glide.with(this).load("http:" + temps[2]).centerCrop().into(weatherIcon);
         }
     }
 
@@ -170,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
