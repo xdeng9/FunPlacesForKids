@@ -11,13 +11,12 @@ import android.location.LocationManager;
 import android.support.v4.content.ContextCompat;
 
 import com.example.xialong.funplacesforkids.MainActivity;
+import com.example.xialong.funplacesforkids.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-/**
- * Created by administrator on 7/9/17.
- */
+import java.util.Random;
 
 public class Util {
 
@@ -54,6 +53,19 @@ public class Util {
 
     public static String formatTemp(String temp){
         int buffer = (int) Double.parseDouble(temp);
-        return String.valueOf(buffer);
+        return String.valueOf(buffer)+"\u00b0" + "F";
+    }
+
+    public static int getRandomBackdrop(){
+        ArrayList<Integer> backdrops = new ArrayList<Integer>(){{
+            add(R.drawable.amusement_center);
+            add(R.drawable.amusement_park);
+            add(R.drawable.aquarium);
+            add(R.drawable.back_drop);
+            add(R.drawable.museum);
+            add(R.drawable.park);
+        }};
+        Random rand = new Random();
+        return backdrops.get(rand.nextInt(backdrops.size()));
     }
 }

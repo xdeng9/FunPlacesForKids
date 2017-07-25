@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
-    private ImageView weatherIcon;
+    private ImageView weatherIcon, backdrop;
     private MyPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements
         currentLocation = (TextView) findViewById(R.id.current_location);
         currentTemperature = (TextView) findViewById(R.id.temperature);
         weatherIcon = (ImageView) findViewById(R.id.weather_icon);
+        backdrop = (ImageView) findViewById(R.id.backdrop_image);
+        backdrop.setImageResource(Util.getRandomBackdrop());
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements
     public void updateWeather(String temperature) {
         if (temperature != null && temperature.length() > 0) {
             String[] temps = temperature.split(" ");
-            currentTemperature.setText(Util.formatTemp(temps[1]) + "\u00b0" + "F");
+            currentTemperature.setText(Util.formatTemp(temps[1]));
             Glide.with(this).load("http:" + temps[2]).centerCrop().into(weatherIcon);
         }
     }
