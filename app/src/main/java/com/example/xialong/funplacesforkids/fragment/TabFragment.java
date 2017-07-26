@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.example.xialong.funplacesforkids.R;
 
+import java.util.ArrayList;
+
 public class TabFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";

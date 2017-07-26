@@ -68,4 +68,17 @@ public class Util {
         Random rand = new Random();
         return backdrops.get(rand.nextInt(backdrops.size()));
     }
+
+    public static ArrayList<String> getTabNames(){
+        final ArrayList<String> tabNames = new ArrayList<String>() {{
+            add("Amusement Parks");
+            add("Aquariums");
+            add("Museums");
+            add("Indoor Recreation");
+            add("Parks");
+            add("Zoos");
+            add("Hiking Trails");
+        }};
+        return tabNames;
+    }
 }

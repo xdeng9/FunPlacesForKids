@@ -191,28 +191,18 @@ public class MainActivity extends AppCompatActivity implements
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
-        private final ArrayList<String> tabNames = new ArrayList<String>() {{
-            add("Amusement Parks");
-            add("Aquariums");
-            add("Museums");
-            add("Indoor Recreation");
-            add("Parks");
-            add("Zoos");
-            add("Hiking Trails");
-        }};
-
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabNames.get(position);
+            return Util.getTabNames().get(position);
         }
 
         @Override
         public int getCount() {
-            return tabNames.size();
+            return Util.getTabNames().size();
         }
 
         @Override
