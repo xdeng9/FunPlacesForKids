@@ -48,7 +48,7 @@ public class PlaceUtil {
         getRequestQueue().add(req);
     }
 
-    public static void startVolleyRequest(Context context){
+    public static void startVolleyRequest(Context context, String placeType){
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.8,-122.4&radius=500&types=park&key=AIzaSyAj4OYy0O9hkAPpgc7jzpc5LpwgpGGJkb8";
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements
         currentTemperature = (TextView) findViewById(R.id.temperature);
         weatherIcon = (ImageView) findViewById(R.id.weather_icon);
         backdrop = (ImageView) findViewById(R.id.backdrop_image);
-        backdrop.setImageResource(Util.getRandomBackdrop());
+        Glide.with(this).load(Util.getRandomBackdrop()).centerCrop().into(backdrop);
         tabs = (PagerSlidingTabStrip) findViewById(R.id.activity_tabs);
         pager = (ViewPager) findViewById(R.id.activity_pager);
 

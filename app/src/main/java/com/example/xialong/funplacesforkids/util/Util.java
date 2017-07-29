@@ -20,6 +20,16 @@ import java.util.Random;
 
 public class Util {
 
+    private static final ArrayList<String> tabNames = new ArrayList<String>() {{
+        add("Amusement Parks");
+        add("Aquariums");
+        add("Museums");
+        add("Indoor Recreation");
+        add("Parks");
+        add("Zoos");
+        add("Hiking Trails");
+    }};
+
     public static String getCity(Context context, double lat, double lon){
         String city="";
 
@@ -70,15 +80,6 @@ public class Util {
     }
 
     public static ArrayList<String> getTabNames(){
-        final ArrayList<String> tabNames = new ArrayList<String>() {{
-            add("Amusement Parks");
-            add("Aquariums");
-            add("Museums");
-            add("Indoor Recreation");
-            add("Parks");
-            add("Zoos");
-            add("Hiking Trails");
-        }};
         return tabNames;
     }
 }

@@ -2,13 +2,14 @@ package com.example.xialong.funplacesforkids.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.xialong.funplacesforkids.R;
-
-import java.util.ArrayList;
+import com.example.xialong.funplacesforkids.util.Util;
 
 public class TabFragment extends Fragment {
 
@@ -32,8 +33,39 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
-
-
+        Toast.makeText(getContext(), Util.getTabNames().get(mPosition), Toast.LENGTH_LONG).show();
         return rootView;
+    }
+
+    public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+
+            public ViewHolder(View view){
+                super(view);
+
+            }
+        }
+
+        public PlaceAdapter(){
+
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_place,parent,false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, int position){
+
+        }
+
+        @Override
+        public int getItemCount(){
+            return 0;
+        }
     }
 }
