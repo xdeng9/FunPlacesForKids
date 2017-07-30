@@ -24,10 +24,18 @@ public class Util {
         add("Amusement Parks");
         add("Aquariums");
         add("Museums");
-        add("Indoor Recreation");
+        add("Bowling Alley");
         add("Parks");
         add("Zoos");
-        add("Hiking Trails");
+    }};
+
+    private static final ArrayList<String> placeTypes = new ArrayList<String>() {{
+        add("amusement_park");
+        add("aquarium");
+        add("museum");
+        add("bowling_alley");
+        add("park");
+        add("zoo");
     }};
 
     public static String getCity(Context context, double lat, double lon){

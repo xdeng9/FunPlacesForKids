@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.xialong.funplacesforkids.R;
+import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 
 public class TabFragment extends Fragment {
@@ -28,12 +29,13 @@ public class TabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
+        PlaceUtil.startVolleyRequest(getContext(), Util.getTabNames().get(mPosition));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
-        Toast.makeText(getContext(), Util.getTabNames().get(mPosition), Toast.LENGTH_LONG).show();
+
         return rootView;
     }
 
