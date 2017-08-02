@@ -90,4 +90,6 @@ public class Util {
     public static ArrayList<String> getTabNames(){
         return tabNames;
     }
+
+    public static ArrayList<String> getPlaceTypes() {return placeTypes;}
 }

@@ -29,7 +29,7 @@ public class TabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
-        PlaceUtil.startVolleyRequest(getContext(), Util.getTabNames().get(mPosition));
+        PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
     }
 
     @Override
