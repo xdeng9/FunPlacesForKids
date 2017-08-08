@@ -30,6 +30,9 @@ public class Place implements Parcelable {
 
     private Place(Parcel in) {
         placeName = in.readString();
+        placeImageUrl = in.readString();
+        placeRating = in.readString();
+        placeAddress = in.readString();
     }
 
     @Override
