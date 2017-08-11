@@ -3,6 +3,7 @@ package com.example.xialong.funplacesforkids.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import com.example.xialong.funplacesforkids.R;
 import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 
-public class TabFragment extends Fragment {
+public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
@@ -29,7 +30,7 @@ public class TabFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
-        PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
+        PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
     }
 
     @Override
@@ -37,6 +38,11 @@ public class TabFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
 
         return rootView;
+    }
+
+    @Override
+    public void getResponse(String result) {
+        Log.d("api response=",result);
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
