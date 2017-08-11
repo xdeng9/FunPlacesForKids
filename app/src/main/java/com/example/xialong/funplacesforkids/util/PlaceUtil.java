@@ -13,7 +13,9 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.xialong.funplacesforkids.data.Place;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PlaceUtil {
@@ -63,5 +65,17 @@ public class PlaceUtil {
             }
         });
         PlaceUtil.getInstance(context).addToRequestQueue(jsObjectRequest);
+    }
+
+    public static Place[] getPlaces(String result){
+        Place[] places = null;
+        try {
+            JSONObject object = new JSONObject(result);
+
+        } catch (JSONException e) {
+            e.getMessage();
+        }
+
+        return places;
     }
 }
