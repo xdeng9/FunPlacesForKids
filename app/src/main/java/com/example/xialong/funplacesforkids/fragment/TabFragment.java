@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.xialong.funplacesforkids.R;
+import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 
@@ -17,6 +18,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
+    private Place[] mPlaces;
 
     public static TabFragment newInstance(int position) {
         TabFragment f = new TabFragment();
@@ -43,6 +45,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
     @Override
     public void getResponse(String result) {
         Log.d("api response=",result);
+        mPlaces = PlaceUtil.getPlaces(result);
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{

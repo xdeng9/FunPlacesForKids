@@ -15,6 +15,7 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.xialong.funplacesforkids.data.Place;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,7 +77,11 @@ public class PlaceUtil {
         Place[] places = null;
         try {
             JSONObject object = new JSONObject(result);
-
+            JSONArray jArray = object.getJSONArray("results");
+            places = new Place[jArray.length()];
+            for(int i=0; i< jArray.length(); i++){
+                
+            }
         } catch (JSONException e) {
             e.getMessage();
         }
