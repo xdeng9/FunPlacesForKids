@@ -46,6 +46,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
     public void getResponse(String result) {
         Log.d("api response=",result);
         mPlaces = PlaceUtil.getPlaces(result);
+        Log.d("#ofplaces=",mPlaces.length+"");
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{

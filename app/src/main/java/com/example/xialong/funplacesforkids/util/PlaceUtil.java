@@ -80,7 +80,13 @@ public class PlaceUtil {
             JSONArray jArray = object.getJSONArray("results");
             places = new Place[jArray.length()];
             for(int i=0; i< jArray.length(); i++){
-                
+                JSONObject placeDetail = jArray.getJSONObject(i);
+                String name = placeDetail.getString("name");
+                String imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
+                String rating = placeDetail.getDouble("rating")+"";
+                String address = placeDetail.getString("vicinity");
+                Place place = new Place(name, imageUrl, rating, address);
+                places[i] = place;
             }
         } catch (JSONException e) {
             e.getMessage();
