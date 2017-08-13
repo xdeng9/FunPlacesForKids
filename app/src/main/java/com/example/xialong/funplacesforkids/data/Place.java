@@ -17,6 +17,22 @@ public class Place implements Parcelable {
         this.placeAddress = placeAddress;
     }
 
+    public String getPlaceName(){
+        return placeName;
+    }
+
+    public String getPlaceImageUrl(){
+        return placeImageUrl;
+    }
+
+    public String getPlaceRating(){
+        return placeRating;
+    }
+
+    public String getPlaceAddress(){
+        return placeAddress;
+    }
+
     public static final Parcelable.Creator<Place> CREATOR
             = new Parcelable.Creator<Place>() {
         public Place createFromParcel(Parcel in) {
