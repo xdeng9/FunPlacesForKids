@@ -19,17 +19,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class PlaceUtil {
 
     private static PlaceUtil mInstance;
     private static Context mContext;
     private RequestQueue mRequestQueue;
+    private static final String KEY = "&key=AIzaSyAj4OYy0O9hkAPpgc7jzpc5LpwgpGGJkb8";
+    private static final String TAG = PlaceUtil.class.getSimpleName();
 
     public interface PlaceCallback {
         void getResponse(String result);
     }
 
-    private PlaceUtil (Context context){
+    private PlaceUtil(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
     }
@@ -55,43 +59,40 @@ public class PlaceUtil {
         getRequestQueue().add(req);
     }
 
-    public static void startVolleyRequest(final Context context, final PlaceCallback callback, String placeType){
-        String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.8,-122.4&radius=5000&types="+placeType+
-                "&key=AIzaSyAj4OYy0O9hkAPpgc7jzpc5LpwgpGGJkb8";
+    public static void startVolleyRequest(final Context context, final PlaceCallback callback, String placeType) {
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.8,-122.4&radius=5000&types=" + placeType + KEY;
         Log.d("URL=", url);
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-                callback.getResponse(response.toString());
+            public void onResponse(JSONObject result) {
+                callback.getResponse(result.toString());
             }
-        }, new Response.ErrorListener(){
+        }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error){
-                Log.d("api response=","somethang wrong!");
+            public void onErrorResponse(VolleyError error) {
+                Log.d("api response=", "somethang wrong!");
             }
         });
         PlaceUtil.getInstance(context).addToRequestQueue(jsObjectRequest);
     }
 
-    public static Place[] getPlaces(String result){
-        Place[] places = null;
-        try {
-            JSONObject object = new JSONObject(result);
-            JSONArray jArray = object.getJSONArray("results");
-            places = new Place[jArray.length()];
-            for(int i=0; i< jArray.length(); i++){
-                JSONObject placeDetail = jArray.getJSONObject(i);
-                String name = placeDetail.getString("name");
-                String imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
-                String rating = placeDetail.getDouble("rating")+"";
-                String address = placeDetail.getString("vicinity");
-                Place place = new Place(name, imageUrl, rating, address);
-                places[i] = place;
-            }
-        } catch (JSONException e) {
-            e.getMessage();
+    public static Place[] getPlaces(String result) throws JSONException {
+        JSONObject object = new JSONObject(result);
+        JSONArray jArray = object.getJSONArray("results");
+        Place[] places = new Place[jArray.length()];
+        Place place;
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject placeDetail = jArray.getJSONObject(i);
+            String name = placeDetail.getString("name");
+            String photoReference = placeDetail.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
+            String imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + KEY;
+            String rating = placeDetail.getDouble("rating") + "";
+            String address = placeDetail.getString("vicinity");
+            place = new Place(name, imageUrl, rating, address);
+            places[i] = place;
         }
-
+//        Log.d(TAG, places.length + "");
+//        Log.d(TAG, places[0].getPlaceAddress() + " " + places[0].getPlaceName() + " " + places[0].getPlaceImageUrl() + " " + places[0].getPlaceRating());
         return places;
     }
 }

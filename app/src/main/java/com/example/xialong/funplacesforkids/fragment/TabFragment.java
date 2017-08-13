@@ -14,11 +14,14 @@ import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 
+import org.json.JSONException;
+
 public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
     private Place[] mPlaces;
+    private static final String TAG = TabFragment.class.getSimpleName();
 
     public static TabFragment newInstance(int position) {
         TabFragment f = new TabFragment();
@@ -44,9 +47,17 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     @Override
     public void getResponse(String result) {
-        Log.d("api response=",result);
-        mPlaces = PlaceUtil.getPlaces(result);
-        Log.d("#ofplaces=",mPlaces.length+"");
+       // Log.d("api response=",result);
+        try{
+            mPlaces = PlaceUtil.getPlaces(result);
+            Log.d(TAG,mPlaces.length+"");
+            Log.d(TAG, mPlaces[0].getPlaceAddress()+" "+mPlaces[0].getPlaceName()+" "+mPlaces[0].getPlaceImageUrl()+" "+mPlaces[0].getPlaceRating());
+        }catch (JSONException e){
+            Log.e(TAG, e.getMessage(), e);
+            e.printStackTrace();
+        }
+
+
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
