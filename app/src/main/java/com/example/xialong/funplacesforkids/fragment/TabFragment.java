@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xialong.funplacesforkids.R;
@@ -63,14 +65,19 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
         public class ViewHolder extends RecyclerView.ViewHolder{
+            public final View mView;
+            public final ImageView mImageView;
+            public final TextView mTextView;
 
             public ViewHolder(View view){
                 super(view);
-
+                mView = view;
+                mImageView = (ImageView) view.findViewById(R.id.place_image);
+                mTextView = (TextView) view.findViewById(R.id.place_address);
             }
         }
 
-        public PlaceAdapter(){
+        public PlaceAdapter(Place[] places){
 
         }
 
