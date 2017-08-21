@@ -2,6 +2,7 @@ package com.example.xialong.funplacesforkids.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
     private static final String ARG_POSITION = "position";
     private int mPosition;
     private Place[] mPlaces;
+    private RecyclerView mRecyclerView;
     private static final String TAG = TabFragment.class.getSimpleName();
 
     public static TabFragment newInstance(int position) {
@@ -43,7 +45,8 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
-
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return rootView;
     }
 
@@ -58,12 +61,13 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
             Log.e(TAG, e.getMessage(), e);
             e.printStackTrace();
         }
-
-
+        PlaceAdapter adapter = new PlaceAdapter(mPlaces);
+        //mRecyclerView.setAdapter(adapter);
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
 
+        Place[] items;
         public class ViewHolder extends RecyclerView.ViewHolder{
             public final View mView;
             public final ImageView mImageView;
@@ -78,7 +82,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
         }
 
         public PlaceAdapter(Place[] places){
-
+            items = places;
         }
 
         @Override
@@ -95,6 +99,9 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
         @Override
         public int getItemCount(){
+            if(items!=null){
+                return items.length;
+            }
             return 0;
         }
     }
