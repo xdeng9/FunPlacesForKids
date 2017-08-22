@@ -52,7 +52,6 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     @Override
     public void getResponse(String result) {
-       // Log.d("api response=",result);
         try{
             mPlaces = PlaceUtil.getPlaces(result);
             Log.d(TAG,mPlaces.length+"");

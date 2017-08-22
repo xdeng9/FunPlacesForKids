@@ -97,7 +97,6 @@ public class PlaceUtil {
             place = new Place(name, imageUrl, rating, address);
             places[i] = place;
         }
-//        Log.d(TAG, places.length + "");
 //        Log.d(TAG, places[0].getPlaceAddress() + " " + places[0].getPlaceName() + " " + places[0].getPlaceImageUrl() + " " + places[0].getPlaceRating());
         return places;
     }
