@@ -52,6 +52,22 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putParcelableArray(String.valueOf(mPosition), mPlaces);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState != null) {
+           // mPlaces = savedInstanceState.getParcelableArray(String.valueOf(mPosition));
+            setupRecyclerView();
+        }
+    }
+
+    @Override
     public void getResponse(String result) {
         try {
             mPlaces = PlaceUtil.getPlaces(result);

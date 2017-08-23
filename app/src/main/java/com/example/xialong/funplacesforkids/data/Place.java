@@ -45,10 +45,12 @@ public class Place implements Parcelable {
     };
 
     private Place(Parcel in) {
-        placeName = in.readString();
-        placeImageUrl = in.readString();
-        placeRating = in.readString();
-        placeAddress = in.readString();
+        String[] data = new String[4];
+        in.readStringArray(data);
+        placeName = data[0];
+        placeImageUrl = data[1];
+        placeRating = data[2];
+        placeAddress = data[3];
     }
 
     @Override
@@ -58,6 +60,7 @@ public class Place implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeStringArray(new String[]{placeName,
+        placeImageUrl, placeRating, placeAddress});
     }
 }
