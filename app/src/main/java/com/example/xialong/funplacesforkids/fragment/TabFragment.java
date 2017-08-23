@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.R;
@@ -106,10 +105,13 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mAddressName.setText(items[position].getPlaceName());
             holder.mAddress.setText(items[position].getPlaceAddress());
-            Glide.with(mContext)
-                    .load(items[position].getPlaceImageUrl())
-                    .centerCrop()
-                    .into(holder.mImageView);
+            String imageUrl = items[position].getPlaceImageUrl();
+            if(!imageUrl.equals("na")){
+                Glide.with(mContext)
+                        .load(imageUrl)
+                        .centerCrop()
+                        .into(holder.mImageView);
+            }
         }
 
         @Override

@@ -82,11 +82,18 @@ public class PlaceUtil {
         Place[] places = new Place[jArray.length()];
         Place place;
         String rating = "";
+        String imageUrl = "";
+        String photoReference = "";
         for (int i = 0; i < jArray.length(); i++) {
             JSONObject placeDetail = jArray.getJSONObject(i);
             String name = placeDetail.getString("name");
-            String photoReference = placeDetail.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
-            String imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + KEY;
+            try {
+                photoReference = placeDetail.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
+                imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + KEY;
+            } catch (JSONException e) {
+                imageUrl = "na";
+            }
+
             try {
                 rating = placeDetail.getDouble("rating") + "";
             } catch (Exception e) {
