@@ -1,5 +1,6 @@
 package com.example.xialong.funplacesforkids.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.R;
 import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.util.PlaceUtil;
@@ -19,7 +21,7 @@ import com.example.xialong.funplacesforkids.util.Util;
 
 import org.json.JSONException;
 
-public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
+public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
@@ -52,28 +54,34 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
     @Override
     public void getResponse(String result) {
-        try{
+        try {
             mPlaces = PlaceUtil.getPlaces(result);
-            Log.d(TAG,mPlaces.length+"");
-            Log.d(TAG, mPlaces[0].getPlaceAddress()+" "+mPlaces[0].getPlaceName()+" "+mPlaces[0].getPlaceImageUrl()+" "+mPlaces[0].getPlaceRating());
-        }catch (JSONException e){
+            Log.d(TAG, mPlaces.length + "");
+            Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl() + " " + mPlaces[0].getPlaceRating());
+        } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
             e.printStackTrace();
         }
-        PlaceAdapter adapter = new PlaceAdapter(mPlaces);
+        setupRecyclerView();
+    }
+
+    private void setupRecyclerView(){
+        PlaceAdapter adapter = new PlaceAdapter(getContext(), mPlaces);
         mRecyclerView.setAdapter(adapter);
     }
 
-    public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
+    public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
 
-        Place[] items;
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        private Place[] items;
+        private Context mContext;
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final ImageView mImageView;
             public final TextView mAddress;
             public final TextView mAddressName;
 
-            public ViewHolder(View view){
+            public ViewHolder(View view) {
                 super(view);
                 mView = view;
                 mImageView = (ImageView) view.findViewById(R.id.place_image);
@@ -82,26 +90,31 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
             }
         }
 
-        public PlaceAdapter(Place[] places){
+        public PlaceAdapter(Context context, Place[] places) {
             items = places;
+            mContext = context;
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item_place,parent,false);
+                    .inflate(R.layout.list_item_place, parent, false);
             return new ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position){
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mAddressName.setText(items[position].getPlaceName());
             holder.mAddress.setText(items[position].getPlaceAddress());
+            Glide.with(mContext)
+                    .load(items[position].getPlaceImageUrl())
+                    .centerCrop()
+                    .into(holder.mImageView);
         }
 
         @Override
-        public int getItemCount(){
-            if(items!=null){
+        public int getItemCount() {
+            if (items != null) {
                 return items.length;
             }
             return 0;
