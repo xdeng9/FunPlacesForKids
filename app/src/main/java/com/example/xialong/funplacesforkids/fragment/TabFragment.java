@@ -61,7 +61,7 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
             e.printStackTrace();
         }
         PlaceAdapter adapter = new PlaceAdapter(mPlaces);
-        //mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder>{
@@ -70,13 +70,15 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
         public class ViewHolder extends RecyclerView.ViewHolder{
             public final View mView;
             public final ImageView mImageView;
-            public final TextView mTextView;
+            public final TextView mAddress;
+            public final TextView mAddressName;
 
             public ViewHolder(View view){
                 super(view);
                 mView = view;
                 mImageView = (ImageView) view.findViewById(R.id.place_image);
-                mTextView = (TextView) view.findViewById(R.id.place_address);
+                mAddress = (TextView) view.findViewById(R.id.place_address);
+                mAddressName = (TextView) view.findViewById(R.id.place_name);
             }
         }
 
@@ -93,7 +95,8 @@ public class TabFragment extends Fragment implements  PlaceUtil.PlaceCallback{
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position){
-
+            holder.mAddressName.setText(items[position].getPlaceName());
+            holder.mAddress.setText(items[position].getPlaceAddress());
         }
 
         @Override
