@@ -40,6 +40,12 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
+//        if (savedInstanceState != null) {
+//            mPlaces = (Place[]) savedInstanceState.getParcelableArray(String.valueOf(mPosition));
+//            setupRecyclerView();
+//        }else{
+//
+//        }
         PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
     }
 
@@ -51,21 +57,11 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
         return rootView;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putParcelableArray(String.valueOf(mPosition), mPlaces);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null) {
-           // mPlaces = savedInstanceState.getParcelableArray(String.valueOf(mPosition));
-            setupRecyclerView();
-        }
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle bundle) {
+//        super.onSaveInstanceState(bundle);
+//        bundle.putParcelableArray(String.valueOf(mPosition), mPlaces);
+//    }
 
     @Override
     public void getResponse(String result) {
