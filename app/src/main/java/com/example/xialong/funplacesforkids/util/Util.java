@@ -92,4 +92,15 @@ public class Util {
     }
 
     public static ArrayList<String> getPlaceTypes() {return placeTypes;}
+
+    public static float parseRating(String rating){
+        float result = 0f;
+
+        try{
+            result = Float.parseFloat(rating);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

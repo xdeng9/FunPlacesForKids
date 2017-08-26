@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -80,6 +81,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
             public final ImageView mImageView;
             public final TextView mAddress;
             public final TextView mAddressName;
+            public final RatingBar mRatingBar;
 
             public ViewHolder(View view) {
                 super(view);
@@ -87,6 +89,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
                 mImageView = (ImageView) view.findViewById(R.id.place_image);
                 mAddress = (TextView) view.findViewById(R.id.place_address);
                 mAddressName = (TextView) view.findViewById(R.id.place_name);
+                mRatingBar = (RatingBar) view.findViewById(R.id.place_rating);
             }
         }
 
@@ -106,6 +109,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mAddressName.setText(items[position].getPlaceName());
             holder.mAddress.setText(items[position].getPlaceAddress());
+            holder.mRatingBar.setRating(Util.parseRating(items[position].getPlaceRating()));
             String imageUrl = items[position].getPlaceImageUrl();
             if(!imageUrl.equals("na")){
                 Glide.with(mContext)
