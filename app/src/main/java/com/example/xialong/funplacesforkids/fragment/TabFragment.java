@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,12 +41,6 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
-//        if (savedInstanceState != null) {
-//            mPlaces = (Place[]) savedInstanceState.getParcelableArray(String.valueOf(mPosition));
-//            setupRecyclerView();
-//        }else{
-//
-//        }
         PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
     }
 
@@ -53,15 +48,9 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         return rootView;
     }
-
-//    @Override
-//    public void onSaveInstanceState(Bundle bundle) {
-//        super.onSaveInstanceState(bundle);
-//        bundle.putParcelableArray(String.valueOf(mPosition), mPlaces);
-//    }
 
     @Override
     public void getResponse(String result) {

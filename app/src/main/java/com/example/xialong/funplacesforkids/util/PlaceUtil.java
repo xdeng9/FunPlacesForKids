@@ -89,7 +89,7 @@ public class PlaceUtil {
             String name = placeDetail.getString("name");
             try {
                 photoReference = placeDetail.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
-                imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + KEY;
+                imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=" + photoReference + KEY;
             } catch (JSONException e) {
                 imageUrl = "na";
             }
