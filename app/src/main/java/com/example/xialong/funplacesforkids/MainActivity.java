@@ -116,8 +116,12 @@ public class MainActivity extends AppCompatActivity implements
 
     private void updateLocation(Location location) {
         if (location != null) {
-            currentLocation.setText(Util.getCity(this, location.getLatitude(), location.getLongitude()));
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
+            Util.setCurrentLocation(lat, lon);
+            currentLocation.setText(Util.getCity(this, lat, lon));
             weather.execute(location.getLatitude(), location.getLongitude());
+            adapter.notifyDataSetChanged();
         } else {
             currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
         }
@@ -209,6 +213,11 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public Fragment getItem(int position) {
             return TabFragment.newInstance(position);
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
     }
 }

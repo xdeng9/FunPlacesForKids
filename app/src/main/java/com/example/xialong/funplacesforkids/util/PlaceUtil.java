@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.R.attr.radius;
+
 public class PlaceUtil {
 
     private static PlaceUtil mInstance;
@@ -60,7 +62,8 @@ public class PlaceUtil {
     }
 
     public static void startVolleyRequest(final Context context, final PlaceCallback callback, String placeType) {
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.8,-122.4&radius=5000&types=" + placeType + KEY;
+        String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=5000&types=" + placeType + KEY;
         Log.d("URL=", url);
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -70,7 +73,7 @@ public class PlaceUtil {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("api response=", "somethang wrong!");
+                Log.d(TAG, "Something wrong!");
             }
         });
         PlaceUtil.getInstance(context).addToRequestQueue(jsObjectRequest);

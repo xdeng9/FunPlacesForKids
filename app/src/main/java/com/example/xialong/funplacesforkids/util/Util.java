@@ -19,6 +19,10 @@ import java.util.Locale;
 import java.util.Random;
 
 public class Util {
+    public static final double SF_LAT =37.8;
+    public static final double SF_LON =-122.4;
+    private static double mLat = SF_LAT;
+    private static double mLon = SF_LON;
 
     private static final ArrayList<String> tabNames = new ArrayList<String>() {{
         add("Amusement Parks");
@@ -102,5 +106,18 @@ public class Util {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static double getCurrentLat(){
+        return mLat;
+    }
+
+    public static double getCurrentLon(){
+        return mLon;
+    }
+
+    public static void setCurrentLocation(double lat, double lon){
+        mLat = lat;
+        mLon = lon;
     }
 }

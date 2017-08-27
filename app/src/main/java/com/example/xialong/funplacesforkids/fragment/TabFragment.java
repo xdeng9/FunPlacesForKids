@@ -57,8 +57,13 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     public void getResponse(String result) {
         try {
             mPlaces = PlaceUtil.getPlaces(result);
-            Log.d(TAG, mPlaces.length + "");
-            Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl() + " " + mPlaces[0].getPlaceRating());
+
+            if(mPlaces!=null && mPlaces.length!=0){
+                Log.d(TAG, mPlaces.length + "");
+                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl() + " " + mPlaces[0].getPlaceRating());
+            }else{
+                //handle no places found..
+            }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
             e.printStackTrace();

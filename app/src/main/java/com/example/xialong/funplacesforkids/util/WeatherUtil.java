@@ -18,8 +18,6 @@ import java.net.URL;
 public class WeatherUtil extends AsyncTask<Double, Void, String> {
 
     private Context context;
-    public static final double SF_LAN =37.8;
-    public static final double SF_LON =-122.4;
     public static final String DEFAULT_LOCATION = "SAN FRANCISCO";
 
     public interface Callback {
@@ -33,8 +31,8 @@ public class WeatherUtil extends AsyncTask<Double, Void, String> {
     protected String doInBackground(Double... params) {
         final String BASE_URL = "http://api.apixu.com/v1/current.json?key=cdcb793e00b64f96b92211923171207";
         final String API_QUERY_PARAM = "q";
-        double lat = 37.68;
-        double lon = -121.77;
+        double lat = params[0];
+        double lon = params[1];
         HttpURLConnection connection;
         BufferedReader reader;
         String jsonStr;
