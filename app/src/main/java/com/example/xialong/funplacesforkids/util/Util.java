@@ -82,10 +82,16 @@ public class Util {
         ArrayList<Integer> backdrops = new ArrayList<Integer>(){{
             add(R.drawable.amusement_center);
             add(R.drawable.amusement_park);
+            add(R.drawable.animal);
             add(R.drawable.aquarium);
             add(R.drawable.back_drop);
+            add(R.drawable.beach);
+            add(R.drawable.lake);
+            add(R.drawable.montain);
             add(R.drawable.museum);
             add(R.drawable.park);
+            add(R.drawable.sea);
+            add(R.drawable.snow);
         }};
         Random rand = new Random();
         return backdrops.get(rand.nextInt(backdrops.size()));

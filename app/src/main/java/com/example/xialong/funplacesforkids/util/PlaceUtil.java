@@ -84,9 +84,9 @@ public class PlaceUtil {
         JSONArray jArray = object.getJSONArray("results");
         Place[] places = new Place[jArray.length()];
         Place place;
-        String rating = "";
-        String imageUrl = "";
-        String photoReference = "";
+        String rating;
+        String imageUrl;
+        String photoReference;
         for (int i = 0; i < jArray.length(); i++) {
             JSONObject placeDetail = jArray.getJSONObject(i);
             String name = placeDetail.getString("name");
