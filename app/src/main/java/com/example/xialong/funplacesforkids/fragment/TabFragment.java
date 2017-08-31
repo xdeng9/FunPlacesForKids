@@ -121,6 +121,11 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
                         .load(imageUrl)
                         .centerCrop()
                         .into(holder.mImageView);
+            }else{
+                Glide.with(mContext)
+                        .load(R.drawable.placeholder)
+                        .centerCrop()
+                        .into(holder.mImageView);
             }
         }
 

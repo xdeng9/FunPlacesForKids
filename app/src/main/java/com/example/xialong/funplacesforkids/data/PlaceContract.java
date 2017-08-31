@@ -17,7 +17,8 @@ public class PlaceContract {
         public static final String COLUMN_PLACE_NAME= "place_name";
         public static final String COLUMN_PUBLISHER = "publisher";
         public static final String COLUMN_IMAGE_URL = "image_url";
-        public static final String COLUMN_SOURCE_URL = "source_url";
+        public static final String COLUMN_LATITUDE = "place_latitude";
+        public static final String COLUMN_LONGITUDE = "place_longitude";
         public static final String COLUMN_RATING = "rating";
         public static final String COLUMN_ISFAV = "is_fav";
 
