@@ -63,7 +63,7 @@ public class PlaceUtil {
 
     public static void startVolleyRequest(final Context context, final PlaceCallback callback, String placeType) {
         String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=5000&types=" + placeType + KEY;
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=50000&types=" + placeType + KEY;
         Log.d("URL=", url);
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

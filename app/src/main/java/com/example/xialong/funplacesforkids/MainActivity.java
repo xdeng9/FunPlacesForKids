@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -37,8 +36,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -60,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        weather = new WeatherUtil(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        updateLocation(Util.getLocation(MainActivity.this));
+        //updateLocation(Util.getLocation(MainActivity.this));
         checkPermission();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -120,8 +116,10 @@ public class MainActivity extends AppCompatActivity implements
             double lon = location.getLongitude();
             Util.setCurrentLocation(lat, lon);
             currentLocation.setText(Util.getCity(this, lat, lon));
+            weather = new WeatherUtil(this);
             weather.execute(location.getLatitude(), location.getLongitude());
             adapter.notifyDataSetChanged();
+            Log.d(TAG, "updatedLocation called");
         } else {
             currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
         }
@@ -162,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onConnected called");
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        mLocationRequest.setInterval(12000);
+        mLocationRequest.setInterval(3000000);
 
         int permissionCheck = ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -182,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements
             case REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateLocation(Util.getLocation(MainActivity.this));
+                   // updateLocation(Util.getLocation(MainActivity.this));
                 }
                 return;
             }
@@ -191,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        //updateLocation(location);
+        updateLocation(location);
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
