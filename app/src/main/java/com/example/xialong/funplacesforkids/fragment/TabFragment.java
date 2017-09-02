@@ -63,7 +63,8 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
             if(mPlaces!=null && mPlaces.length!=0){
                 mTextView.setVisibility(View.GONE);
                 Log.d(TAG, mPlaces.length + "");
-                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl() + " " + mPlaces[0].getPlaceRating());
+                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl()
+                        + " " + mPlaces[0].getPlaceRating()+ " "+mPlaces[0].getLatitude()+" "+mPlaces[0].getLongitude()+" "+mPlaces[0].getPlaceId());
             }else{
                 mTextView.setVisibility(View.VISIBLE);
             }

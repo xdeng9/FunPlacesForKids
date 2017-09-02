@@ -9,15 +9,18 @@ public class Place implements Parcelable {
     private String placeImageUrl;
     private String placeRating;
     private String placeAddress;
-    private String placeID;
     private double latitude;
     private double longitude;
+    private String placeId;
 
-    public Place(String placeName, String placeImageUrl, String placeRating, String placeAddress){
+    public Place(String placeName, String placeImageUrl, String placeRating, String placeAddress, double latitude, double longitude, String placeId){
         this.placeName = placeName;
         this.placeImageUrl = placeImageUrl;
         this.placeRating = placeRating;
         this.placeAddress = placeAddress;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.placeId = placeId;
     }
 
     public String getPlaceName(){
@@ -40,7 +43,7 @@ public class Place implements Parcelable {
 
     public double getLongitude() { return longitude;}
 
-    public String getPlaceID() { return placeID; }
+    public String getPlaceId() { return placeId; }
 
     public static final Parcelable.Creator<Place> CREATOR
             = new Parcelable.Creator<Place>() {
@@ -54,12 +57,15 @@ public class Place implements Parcelable {
     };
 
     private Place(Parcel in) {
-        String[] data = new String[4];
+        String[] data = new String[7];
         in.readStringArray(data);
         placeName = data[0];
         placeImageUrl = data[1];
         placeRating = data[2];
         placeAddress = data[3];
+        latitude = Double.parseDouble(data[4]);
+        longitude = Double.parseDouble(data[5]);
+        placeId = data[6];
     }
 
     @Override
@@ -70,6 +76,6 @@ public class Place implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeStringArray(new String[]{placeName,
-        placeImageUrl, placeRating, placeAddress});
+        placeImageUrl, placeRating, placeAddress, String.valueOf(latitude), String.valueOf(longitude), placeId});
     }
 }

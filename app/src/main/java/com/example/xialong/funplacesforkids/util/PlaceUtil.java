@@ -90,6 +90,10 @@ public class PlaceUtil {
         for (int i = 0; i < jArray.length(); i++) {
             JSONObject placeDetail = jArray.getJSONObject(i);
             String name = placeDetail.getString("name");
+            String id = placeDetail.getString("place_id");
+            JSONObject loc = placeDetail.getJSONObject("geometry").getJSONObject("location");
+            double lat = loc.getDouble("lat");
+            double lon = loc.getDouble("lng");
             try {
                 photoReference = placeDetail.getJSONArray("photos").getJSONObject(0).getString("photo_reference");
                 imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=" + photoReference + KEY;
@@ -104,7 +108,7 @@ public class PlaceUtil {
             }
 
             String address = placeDetail.getString("vicinity");
-            place = new Place(name, imageUrl, rating, address);
+            place = new Place(name, imageUrl, rating, address, lat, lon, id);
             places[i] = place;
         }
         return places;
