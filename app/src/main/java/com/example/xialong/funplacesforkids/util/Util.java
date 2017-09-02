@@ -127,7 +127,13 @@ public class Util {
         mLon = lon;
     }
 
-    public static double getDistance(double lat1, double lon1, double lat2, double lon2) {
+    public static String getDistance(double lat, double lon){
+        double distance = calcDistance(getCurrentLat(), getCurrentLon(), lat, lon);
+
+        return String.valueOf(Math.round(distance*10.0)/10.0);
+    }
+
+    private static double calcDistance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
         dist = Math.acos(dist);
@@ -138,7 +144,7 @@ public class Util {
 //        } else if (unit == "m") {
 //            dist = dist * 0.8684;
 //        }
-        return dist * 0.8684;
+        return (dist * 0.8684);
     }
 
     private static double deg2rad(double deg) {

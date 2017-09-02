@@ -91,6 +91,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
             public final TextView mAddress;
             public final TextView mAddressName;
             public final RatingBar mRatingBar;
+            public final TextView mDistance;
 
             public ViewHolder(View view) {
                 super(view);
@@ -99,6 +100,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
                 mAddress = (TextView) view.findViewById(R.id.place_address);
                 mAddressName = (TextView) view.findViewById(R.id.place_name);
                 mRatingBar = (RatingBar) view.findViewById(R.id.place_rating);
+                mDistance = (TextView) view.findViewById(R.id.distance);
             }
         }
 
@@ -131,6 +133,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
                         .centerCrop()
                         .into(holder.mImageView);
             }
+            holder.mDistance.setText(Util.getDistance(items[position].getLatitude(), items[position].getLongitude())+" mi");
         }
 
         @Override
