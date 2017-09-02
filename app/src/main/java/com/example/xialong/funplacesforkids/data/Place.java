@@ -9,6 +9,7 @@ public class Place implements Parcelable {
     private String placeImageUrl;
     private String placeRating;
     private String placeAddress;
+    private String placeID;
     private double latitude;
     private double longitude;
 
@@ -38,6 +39,8 @@ public class Place implements Parcelable {
     public double getLatitude() { return latitude;}
 
     public double getLongitude() { return longitude;}
+
+    public String getPlaceID() { return placeID; }
 
     public static final Parcelable.Creator<Place> CREATOR
             = new Parcelable.Creator<Place>() {

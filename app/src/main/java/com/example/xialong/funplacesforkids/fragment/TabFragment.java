@@ -27,6 +27,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     private static final String ARG_POSITION = "position";
     private int mPosition;
     private Place[] mPlaces;
+    private TextView mTextView;
     private RecyclerView mRecyclerView;
     private static final String TAG = TabFragment.class.getSimpleName();
 
@@ -49,6 +50,7 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mTextView = (TextView) rootView.findViewById(R.id.no_result);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         return rootView;
     }
@@ -59,10 +61,11 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
             mPlaces = PlaceUtil.getPlaces(result);
 
             if(mPlaces!=null && mPlaces.length!=0){
+                mTextView.setVisibility(View.GONE);
                 Log.d(TAG, mPlaces.length + "");
                 Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl() + " " + mPlaces[0].getPlaceRating());
             }else{
-                //handle no places found..
+                mTextView.setVisibility(View.VISIBLE);
             }
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);
