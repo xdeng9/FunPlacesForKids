@@ -13,13 +13,13 @@ public class PlaceContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH).build();
         public static final String TABLE_NAME = "place";
 
-        public static final String COLUMN_PLACE_ID = "place_id";
-        public static final String COLUMN_PLACE_NAME= "place_name";
-        public static final String COLUMN_PUBLISHER = "publisher";
+        public static final String COLUMN_PLACE_NAME = "place_name";
         public static final String COLUMN_IMAGE_URL = "image_url";
+        public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_ADDRESS = "address";
         public static final String COLUMN_LATITUDE = "place_latitude";
         public static final String COLUMN_LONGITUDE = "place_longitude";
-        public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_PLACE_ID = "place_id";
         public static final String COLUMN_ISFAV = "is_fav";
 
         public static Uri buildPlaceUri(String id){
