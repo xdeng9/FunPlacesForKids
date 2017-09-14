@@ -37,13 +37,13 @@ public class PlaceProvider extends ContentProvider{
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        throw new RuntimeException("Not implementing getType.");
     }
 
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-        return null;
+        throw new RuntimeException("Not implementing insert.");
     }
 
     @Override
