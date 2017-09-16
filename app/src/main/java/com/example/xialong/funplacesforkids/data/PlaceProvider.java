@@ -14,6 +14,10 @@ public class PlaceProvider extends ContentProvider{
     private static final int PLACE = 1;
     private static final int PLACE_WITH_ID = 2;
     private PlaceDbHelper mDbHelper;
+    private static final String sSelectionWithId = PlaceContract.PlaceEntry.TABLE_NAME+"."+
+            PlaceContract.PlaceEntry.COLUMN_PLACE_ID + " = ?";
+    private static final String sFavSelection = PlaceContract.PlaceEntry.TABLE_NAME+"."+
+            PlaceContract.PlaceEntry.COLUMN_ISFAV + "= ?";
 
     private static UriMatcher buildUriMatcher(){
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
