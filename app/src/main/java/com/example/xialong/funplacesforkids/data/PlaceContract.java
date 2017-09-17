@@ -20,6 +20,7 @@ public class PlaceContract {
         public static final String COLUMN_LATITUDE = "place_latitude";
         public static final String COLUMN_LONGITUDE = "place_longitude";
         public static final String COLUMN_PLACE_ID = "place_id";
+        public static final String COLUMN_PLACE_TYPE = "place_type";
         public static final String COLUMN_ISFAV = "is_fav";
 
         public static Uri buildPlaceUri(String id){
