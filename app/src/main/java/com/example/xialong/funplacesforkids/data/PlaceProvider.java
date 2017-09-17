@@ -29,13 +29,44 @@ public class PlaceProvider extends ContentProvider{
     }
     @Override
     public boolean onCreate() {
-        return false;
+        mDbHelper = new PlaceDbHelper(getContext());
+        return true;
     }
 
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {
-        return null;
+        Cursor cursor;
+
+        switch (sUriMatcher.match(uri)){
+            case PLACE: {
+                cursor = mDbHelper.getReadableDatabase().query(
+                        PlaceContract.PlaceEntry.TABLE_NAME,
+                        strings,
+                        s,
+                        strings1,
+                        null,
+                        null,
+                        s1
+                );
+                break;
+            }
+            case PLACE_WITH_ID: {
+                cursor = mDbHelper.getReadableDatabase().query(
+                        PlaceContract.PlaceEntry.TABLE_NAME,
+                        null,
+                        sSelectionWithId,
+                        new String[]{uri.getPathSegments().get(1)},
+                        null,
+                        null,
+                        s1
+                );
+                break;
+            }
+            default: throw new UnsupportedOperationException("Unkown uri: "+ uri);
+        }
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return cursor;
     }
 
     @Nullable
