@@ -24,6 +24,7 @@ public class PlaceDbHelper extends SQLiteOpenHelper {
                         PlaceContract.PlaceEntry.COLUMN_ADDRESS + " TEXT NOT NULL, " +
                         PlaceContract.PlaceEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
                         PlaceContract.PlaceEntry.COLUMN_LONGITUDE + " REAL NOT NULL, " +
+                        PlaceContract.PlaceEntry.COLUMN_PLACE_TYPE + " TEXT NOT NULL, " +
                         PlaceContract.PlaceEntry.COLUMN_ISFAV + " INTEGER NOT NULL)";
 
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE);
