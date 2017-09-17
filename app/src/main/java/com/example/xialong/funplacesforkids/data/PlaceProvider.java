@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -67,6 +68,29 @@ public class PlaceProvider extends ContentProvider{
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
+    }
+
+    @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values){
+        int rowsInserted = 0;
+        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.beginTransaction();
+        try{
+            for(ContentValues contentValues : values){
+                long id = db.insertWithOnConflict(PlaceContract.PlaceEntry.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                if(id != -1){
+                    rowsInserted++;
+                }
+            }
+        }finally{
+            db.endTransaction();
+        }
+
+        if(rowsInserted > 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsInserted;
     }
 
     @Nullable
