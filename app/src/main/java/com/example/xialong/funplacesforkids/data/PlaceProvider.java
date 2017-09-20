@@ -107,7 +107,16 @@ public class PlaceProvider extends ContentProvider{
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        int numOfRowsDeleted;
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        if(sUriMatcher.match(uri) == PLACE_WITH_ID){
+            String id = uri.getPathSegments().get(1);
+            numOfRowsDeleted = db.delete(PlaceContract.PlaceEntry.TABLE_NAME, sSelectionWithId, new String[]{id});
+        }else{
+            numOfRowsDeleted = db.delete(PlaceContract.PlaceEntry.TABLE_NAME, sFavSelection, new String[]{"0"});
+        }
+        return numOfRowsDeleted;
     }
 
     @Override
