@@ -116,6 +116,9 @@ public class PlaceProvider extends ContentProvider{
         }else{
             numOfRowsDeleted = db.delete(PlaceContract.PlaceEntry.TABLE_NAME, sFavSelection, new String[]{"0"});
         }
+        if(numOfRowsDeleted != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
         return numOfRowsDeleted;
     }
 
