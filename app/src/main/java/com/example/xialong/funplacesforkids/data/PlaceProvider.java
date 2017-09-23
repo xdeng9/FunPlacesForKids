@@ -124,6 +124,17 @@ public class PlaceProvider extends ContentProvider{
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+        int rowsUpdated;
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        if(sUriMatcher.match(uri) == PLACE_WITH_ID){
+            String id = uri.getPathSegments().get(1);
+            rowsUpdated = db.update(PlaceContract.PlaceEntry.TABLE_NAME, contentValues, sSelectionWithId,
+                    new String[]{id});
+        } else {
+            rowsUpdated = db.update(PlaceContract.PlaceEntry.TABLE_NAME, contentValues, s, strings);
+        }
+        return rowsUpdated;
     }
 }
