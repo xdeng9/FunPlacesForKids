@@ -1,9 +1,11 @@
 package com.example.xialong.funplacesforkids.fragment;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -22,7 +24,9 @@ import com.example.xialong.funplacesforkids.util.Util;
 
 import org.json.JSONException;
 
-public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
+public class TabFragment extends Fragment implements
+        PlaceUtil.PlaceCallback,
+LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
@@ -78,6 +82,21 @@ public class TabFragment extends Fragment implements PlaceUtil.PlaceCallback {
     private void setupRecyclerView(){
         PlaceAdapter adapter = new PlaceAdapter(getContext(), mPlaces);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
