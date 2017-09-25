@@ -1,5 +1,6 @@
 package com.example.xialong.funplacesforkids.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
@@ -83,10 +84,12 @@ public class PlaceUtil {
         JSONObject object = new JSONObject(result);
         JSONArray jArray = object.getJSONArray("results");
         Place[] places = new Place[jArray.length()];
+        ContentValues[] placeContentValues = new ContentValues[jArray.length()];
         Place place;
         String rating;
         String imageUrl;
         String photoReference;
+        int isFave = 0; // 0 = not favorited, 1 = favorite
         for (int i = 0; i < jArray.length(); i++) {
             JSONObject placeDetail = jArray.getJSONObject(i);
             String name = placeDetail.getString("name");
