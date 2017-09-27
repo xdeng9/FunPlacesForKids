@@ -61,22 +61,22 @@ LoaderManager.LoaderCallbacks<Cursor>{
 
     @Override
     public void getResponse(String result) {
-        try {
-            mPlaces = PlaceUtil.getPlaces(result);
-
-            if(mPlaces!=null && mPlaces.length!=0){
-                mTextView.setVisibility(View.GONE);
-                Log.d(TAG, mPlaces.length + "");
-                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl()
-                        + " " + mPlaces[0].getPlaceRating()+ " "+mPlaces[0].getLatitude()+" "+mPlaces[0].getLongitude()+" "+mPlaces[0].getPlaceId());
-            }else{
-                mTextView.setVisibility(View.VISIBLE);
-            }
-        } catch (JSONException e) {
-            Log.e(TAG, e.getMessage(), e);
-            e.printStackTrace();
-        }
-        setupRecyclerView();
+//        try {
+//           // mPlaces = PlaceUtil.getPlaces(result);
+//
+//            if(mPlaces!=null && mPlaces.length!=0){
+//                mTextView.setVisibility(View.GONE);
+//                Log.d(TAG, mPlaces.length + "");
+//                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl()
+//                        + " " + mPlaces[0].getPlaceRating()+ " "+mPlaces[0].getLatitude()+" "+mPlaces[0].getLongitude()+" "+mPlaces[0].getPlaceId());
+//            }else{
+//                mTextView.setVisibility(View.VISIBLE);
+//            }
+//        } catch (JSONException e) {
+//            Log.e(TAG, e.getMessage(), e);
+//            e.printStackTrace();
+//        }
+//        setupRecyclerView();
     }
 
     private void setupRecyclerView(){
