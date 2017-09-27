@@ -15,6 +15,7 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.xialong.funplacesforkids.data.Place;
+import com.example.xialong.funplacesforkids.data.PlaceContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +70,8 @@ public class PlaceUtil {
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-                callback.getResponse(result.toString());
+               // callback.getResponse(result.toString());
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -80,7 +82,7 @@ public class PlaceUtil {
         PlaceUtil.getInstance(context).addToRequestQueue(jsObjectRequest);
     }
 
-    public static Place[] getPlaces(String result) throws JSONException {
+    public static Place[] getPlaces(String result, String placeType) throws JSONException {
         JSONObject object = new JSONObject(result);
         JSONArray jArray = object.getJSONArray("results");
         Place[] places = new Place[jArray.length()];
@@ -113,6 +115,16 @@ public class PlaceUtil {
             String address = placeDetail.getString("vicinity");
             place = new Place(name, imageUrl, rating, address, lat, lon, id);
             places[i] = place;
+            ContentValues row = new ContentValues();
+            row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_ID, id);
+            row.put(PlaceContract.PlaceEntry.COLUMN_IMAGE_URL, imageUrl);
+            row.put(PlaceContract.PlaceEntry.COLUMN_RATING, rating);
+            row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_NAME, name);
+            row.put(PlaceContract.PlaceEntry.COLUMN_ADDRESS, address);
+            row.put(PlaceContract.PlaceEntry.COLUMN_LATITUDE, lat);
+            row.put(PlaceContract.PlaceEntry.COLUMN_LONGITUDE, lon);
+            row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_TYPE, placeType);
+            row.put(PlaceContract.PlaceEntry.COLUMN_ISFAV, 0);
         }
         return places;
     }
