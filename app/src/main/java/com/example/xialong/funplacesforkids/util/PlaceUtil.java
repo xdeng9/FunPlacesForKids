@@ -82,7 +82,7 @@ public class PlaceUtil {
         PlaceUtil.getInstance(context).addToRequestQueue(jsObjectRequest);
     }
 
-    public static Place[] getPlaces(String result, String placeType) throws JSONException {
+    public static ContentValues[] getPlaces(String result, String placeType) throws JSONException {
         JSONObject object = new JSONObject(result);
         JSONArray jArray = object.getJSONArray("results");
         Place[] places = new Place[jArray.length()];
@@ -124,8 +124,9 @@ public class PlaceUtil {
             row.put(PlaceContract.PlaceEntry.COLUMN_LATITUDE, lat);
             row.put(PlaceContract.PlaceEntry.COLUMN_LONGITUDE, lon);
             row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_TYPE, placeType);
-            row.put(PlaceContract.PlaceEntry.COLUMN_ISFAV, 0);
+            row.put(PlaceContract.PlaceEntry.COLUMN_ISFAV, isFave);
         }
-        return places;
+        //return places;
+        return placeContentValues;
     }
 }
