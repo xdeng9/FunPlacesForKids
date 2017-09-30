@@ -74,7 +74,7 @@ public class PlaceUtil {
                // callback.getResponse(result.toString());
                 try{
                     ContentResolver resolver = context.getContentResolver();
-                    //delete old data here
+                    resolver.delete(PlaceContract.PlaceEntry.CONTENT_URI, null, null);
                     ContentValues[] contentValues = getPlaces(result.toString(), placeType);
                     resolver.bulkInsert(PlaceContract.PlaceEntry.CONTENT_URI, contentValues);
                 }catch (Exception e){

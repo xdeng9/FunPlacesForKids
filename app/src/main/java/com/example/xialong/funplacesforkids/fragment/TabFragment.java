@@ -85,7 +85,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int i, Bundle args) {
         return null;
     }
 
