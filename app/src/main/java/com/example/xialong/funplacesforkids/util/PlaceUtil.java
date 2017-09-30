@@ -1,5 +1,6 @@
 package com.example.xialong.funplacesforkids.util;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
@@ -63,7 +64,7 @@ public class PlaceUtil {
         getRequestQueue().add(req);
     }
 
-    public static void startVolleyRequest(final Context context, final PlaceCallback callback, String placeType) {
+    public static void startVolleyRequest(final Context context, final PlaceCallback callback, final String placeType) {
         String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=45000&types=" + placeType + KEY;
         Log.d("URL=", url);
@@ -71,7 +72,14 @@ public class PlaceUtil {
             @Override
             public void onResponse(JSONObject result) {
                // callback.getResponse(result.toString());
-
+                try{
+                    ContentResolver resolver = context.getContentResolver();
+                    //delete old data here
+                    ContentValues[] contentValues = getPlaces(result.toString(), placeType);
+                    resolver.bulkInsert(PlaceContract.PlaceEntry.CONTENT_URI, contentValues);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
