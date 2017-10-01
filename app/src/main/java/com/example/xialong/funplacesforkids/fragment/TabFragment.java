@@ -1,10 +1,12 @@
 package com.example.xialong.funplacesforkids.fragment;
 
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.R;
 import com.example.xialong.funplacesforkids.data.Place;
+import com.example.xialong.funplacesforkids.data.PlaceContract;
 import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 
@@ -26,7 +29,7 @@ import org.json.JSONException;
 
 public class TabFragment extends Fragment implements
         PlaceUtil.PlaceCallback,
-LoaderManager.LoaderCallbacks<Cursor>{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
@@ -56,6 +59,7 @@ LoaderManager.LoaderCallbacks<Cursor>{
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mTextView = (TextView) rootView.findViewById(R.id.no_result);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        getLoaderManager().initLoader(0, null, this);
         return rootView;
     }
 
@@ -79,14 +83,21 @@ LoaderManager.LoaderCallbacks<Cursor>{
 //        setupRecyclerView();
     }
 
-    private void setupRecyclerView(){
+    private void setupRecyclerView() {
         PlaceAdapter adapter = new PlaceAdapter(getContext(), mPlaces);
         mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle args) {
-        return null;
+        return new CursorLoader(
+                getActivity(),
+                PlaceContract.PlaceEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
@@ -141,18 +152,18 @@ LoaderManager.LoaderCallbacks<Cursor>{
             holder.mAddress.setText(items[position].getPlaceAddress());
             holder.mRatingBar.setRating(Util.parseRating(items[position].getPlaceRating()));
             String imageUrl = items[position].getPlaceImageUrl();
-            if(!imageUrl.equals("na")){
+            if (!imageUrl.equals("na")) {
                 Glide.with(mContext)
                         .load(imageUrl)
                         .centerCrop()
                         .into(holder.mImageView);
-            }else{
+            } else {
                 Glide.with(mContext)
                         .load(R.drawable.placeholder)
                         .centerCrop()
                         .into(holder.mImageView);
             }
-            holder.mDistance.setText(Util.getDistance(items[position].getLatitude(), items[position].getLongitude())+" mi");
+            holder.mDistance.setText(Util.getDistance(items[position].getLatitude(), items[position].getLongitude()) + " mi");
         }
 
         @Override
