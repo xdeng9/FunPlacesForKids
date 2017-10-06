@@ -114,6 +114,7 @@ public class TabFragment extends Fragment implements
 
         private Place[] items;
         private Context mContext;
+        private Cursor mCursor;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
@@ -172,6 +173,11 @@ public class TabFragment extends Fragment implements
                 return items.length;
             }
             return 0;
+        }
+
+        public void swapCursor(Cursor cursor){
+            mCursor = cursor;
+            notifyDataSetChanged();
         }
     }
 }
