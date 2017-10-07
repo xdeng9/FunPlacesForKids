@@ -36,6 +36,7 @@ public class TabFragment extends Fragment implements
     private Place[] mPlaces;
     private TextView mTextView;
     private RecyclerView mRecyclerView;
+    private PlaceAdapter mAdapter;
     private static final String TAG = TabFragment.class.getSimpleName();
 
     public static TabFragment newInstance(int position) {
@@ -50,6 +51,7 @@ public class TabFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
+        mAdapter = new PlaceAdapter(getContext());
         PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
     }
 
@@ -84,8 +86,8 @@ public class TabFragment extends Fragment implements
     }
 
     private void setupRecyclerView() {
-        PlaceAdapter adapter = new PlaceAdapter(getContext(), mPlaces);
-        mRecyclerView.setAdapter(adapter);
+        //PlaceAdapter adapter = new PlaceAdapter(getContext());
+       // mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -102,12 +104,12 @@ public class TabFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
+        mAdapter.swapCursor(cursor);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        mAdapter.swapCursor(null);
     }
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
@@ -135,8 +137,8 @@ public class TabFragment extends Fragment implements
             }
         }
 
-        public PlaceAdapter(Context context, Place[] places) {
-            items = places;
+        public PlaceAdapter(Context context) {
+            //items = places;
             mContext = context;
         }
 
