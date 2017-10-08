@@ -75,21 +75,27 @@ public class PlaceProvider extends ContentProvider{
         int rowsInserted = 0;
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        db.beginTransaction();
-        try{
-            for(ContentValues contentValues : values){
-                long id = db.insertWithOnConflict(PlaceContract.PlaceEntry.TABLE_NAME, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
-                if(id != -1){
-                    rowsInserted++;
+        switch (sUriMatcher.match(uri)){
+            case PLACE:
+                db.beginTransaction();
+                try{
+                    for(ContentValues contentValues : values){
+                        long id = db.insertWithOnConflict(PlaceContract.PlaceEntry.TABLE_NAME, null,
+                                contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                        if(id != -1){
+                            rowsInserted++;
+                        }
+                    }
+                    db.setTransactionSuccessful();
+                }finally{
+                    db.endTransaction();
                 }
-            }
-        }finally{
-            db.endTransaction();
+
+                if(rowsInserted > 0){
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
         }
 
-        if(rowsInserted > 0){
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
         return rowsInserted;
     }
 

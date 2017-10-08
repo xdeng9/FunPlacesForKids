@@ -151,10 +151,19 @@ public class TabFragment extends Fragment implements
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mAddressName.setText(items[position].getPlaceName());
-            holder.mAddress.setText(items[position].getPlaceAddress());
-            holder.mRatingBar.setRating(Util.parseRating(items[position].getPlaceRating()));
-            String imageUrl = items[position].getPlaceImageUrl();
+            mCursor.moveToPosition(position);
+
+            String name = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACE_NAME));
+            String address = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_ADDRESS));
+            String rating = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_RATING));
+            String imageUrl = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_IMAGE_URL));
+            double lat = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LATITUDE));
+            double lon = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LONGITUDE));
+
+            holder.mAddressName.setText(name);
+            holder.mAddress.setText(address);
+            holder.mRatingBar.setRating(Util.parseRating(rating));
+
             if (!imageUrl.equals("na")) {
                 Glide.with(mContext)
                         .load(imageUrl)
@@ -166,7 +175,7 @@ public class TabFragment extends Fragment implements
                         .centerCrop()
                         .into(holder.mImageView);
             }
-            holder.mDistance.setText(Util.getDistance(items[position].getLatitude(), items[position].getLongitude()) + " mi");
+            holder.mDistance.setText(Util.getDistance(lat, lon) + " mi");
         }
 
         @Override
