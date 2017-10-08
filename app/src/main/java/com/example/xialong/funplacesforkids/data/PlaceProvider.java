@@ -79,9 +79,9 @@ public class PlaceProvider extends ContentProvider{
             case PLACE:
                 db.beginTransaction();
                 try{
-                    for(ContentValues contentValues : values){
+                    for(ContentValues contentValue : values){
                         long id = db.insertWithOnConflict(PlaceContract.PlaceEntry.TABLE_NAME, null,
-                                contentValues, SQLiteDatabase.CONFLICT_IGNORE);
+                                contentValue, SQLiteDatabase.CONFLICT_IGNORE);
                         if(id != -1){
                             rowsInserted++;
                         }

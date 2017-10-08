@@ -126,16 +126,16 @@ public class PlaceUtil {
             places[i] = place;
             ContentValues row = new ContentValues();
             row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_ID, id);
+            row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_NAME, name);
             row.put(PlaceContract.PlaceEntry.COLUMN_IMAGE_URL, imageUrl);
             row.put(PlaceContract.PlaceEntry.COLUMN_RATING, rating);
-            row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_NAME, name);
             row.put(PlaceContract.PlaceEntry.COLUMN_ADDRESS, address);
             row.put(PlaceContract.PlaceEntry.COLUMN_LATITUDE, lat);
             row.put(PlaceContract.PlaceEntry.COLUMN_LONGITUDE, lon);
             row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_TYPE, placeType);
             row.put(PlaceContract.PlaceEntry.COLUMN_ISFAV, isFave);
+            placeContentValues[i] = row;
         }
-        //return places;
         return placeContentValues;
     }
 }

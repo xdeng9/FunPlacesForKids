@@ -181,10 +181,8 @@ public class TabFragment extends Fragment implements
         @Override
         public int getItemCount() {
             if (mCursor == null) {
-                Log.d("Cusor is null", "");
                 return 0;
             }else{
-                Log.d("Cusor has ", mCursor.getCount()+" items");
                 return mCursor.getCount();
             }
         }
