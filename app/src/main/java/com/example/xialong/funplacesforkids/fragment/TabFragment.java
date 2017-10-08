@@ -171,10 +171,13 @@ public class TabFragment extends Fragment implements
 
         @Override
         public int getItemCount() {
-            if (items != null) {
-                return items.length;
+            if (mCursor == null) {
+                Log.d("Cusor is null", "");
+                return 0;
+            }else{
+                Log.d("Cusor has ", mCursor.getCount()+" items");
+                return mCursor.getCount();
             }
-            return 0;
         }
 
         public void swapCursor(Cursor cursor){
