@@ -85,25 +85,25 @@ public class TabFragment extends Fragment implements
 //        setupRecyclerView();
     }
 
-    private void setupRecyclerView() {
-        //PlaceAdapter adapter = new PlaceAdapter(getContext());
-       // mRecyclerView.setAdapter(adapter);
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle args) {
         return new CursorLoader(
                 getActivity(),
                 PlaceContract.PlaceEntry.CONTENT_URI,
                 null,
-                null,
-                null,
+                PlaceContract.PlaceEntry.COLUMN_PLACE_TYPE+ " =?",
+                new String[]{Util.getPlaceTypes().get(mPosition)},
                 null
         );
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if(cursor!=null && cursor.getCount()!=0){
+            mTextView.setVisibility(View.GONE);
+        } else{
+                mTextView.setVisibility(View.VISIBLE);
+            }
         mAdapter.swapCursor(cursor);
     }
 
