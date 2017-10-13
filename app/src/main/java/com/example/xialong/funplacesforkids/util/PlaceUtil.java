@@ -34,10 +34,6 @@ public class PlaceUtil {
     private static final String KEY = "&key=AIzaSyAj4OYy0O9hkAPpgc7jzpc5LpwgpGGJkb8";
     private static final String TAG = PlaceUtil.class.getSimpleName();
 
-    public interface PlaceCallback {
-        void getResponse(String result);
-    }
-
     private PlaceUtil(Context context) {
         mContext = context;
         mRequestQueue = getRequestQueue();
@@ -64,14 +60,13 @@ public class PlaceUtil {
         getRequestQueue().add(req);
     }
 
-    public static void startVolleyRequest(final Context context, final PlaceCallback callback, final String placeType) {
+    public static void startVolleyRequest(final Context context, final String placeType) {
         String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=45000&types=" + placeType + KEY;
         Log.d("URL=", url);
         JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
-               // callback.getResponse(result.toString());
                 try{
                     ContentResolver resolver = context.getContentResolver();
                     //resolver.delete(PlaceContract.PlaceEntry.CONTENT_URI, null, null);
