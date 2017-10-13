@@ -51,7 +51,6 @@ public class TabFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
-        mAdapter = new PlaceAdapter(getContext());
         PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
     }
 
@@ -61,6 +60,8 @@ public class TabFragment extends Fragment implements
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mTextView = (TextView) rootView.findViewById(R.id.no_result);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mAdapter = new PlaceAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
         return rootView;
     }
