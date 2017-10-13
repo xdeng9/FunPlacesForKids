@@ -59,6 +59,8 @@ public class TabFragment extends Fragment implements
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mTextView = (TextView) rootView.findViewById(R.id.no_result);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mAdapter = new PlaceAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
         return rootView;
     }
