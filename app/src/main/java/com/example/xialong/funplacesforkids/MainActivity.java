@@ -1,11 +1,15 @@
 package com.example.xialong.funplacesforkids;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +23,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -26,6 +31,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.fragment.TabFragment;
+import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
 import com.example.xialong.funplacesforkids.util.WeatherUtil;
 import com.example.xialong.funplacesforkids.view.PagerSlidingTabStrip;
@@ -118,11 +124,8 @@ public class MainActivity extends AppCompatActivity implements
             weather = new WeatherUtil(this);
             weather.execute(location.getLatitude(), location.getLongitude());
             adapter.notifyDataSetChanged();
-            Log.d(TAG, "updatedLocation called");
-        } else {
-            currentLocation.setText(WeatherUtil.DEFAULT_LOCATION);
+            PlaceUtil.fetchPlaces(this);
         }
-
     }
 
     @Override
@@ -180,14 +183,39 @@ public class MainActivity extends AppCompatActivity implements
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                    updateLocation(Util.getLocation(MainActivity.this));
+                } else {
+                    showSnackbar(R.string.permission_denied_explanation, R.string.settings,
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    // Build intent that displays the App settings screen.
+                                    Intent intent = new Intent();
+                                    intent.setAction(
+                                            Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                    Uri uri = Uri.fromParts("package",
+                                            BuildConfig.APPLICATION_ID, null);
+                                    intent.setData(uri);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            });
                 }
                 return;
             }
         }
     }
 
+    private void showSnackbar(final int mainTextStringId, final int actionStringId,
+                              View.OnClickListener listener) {
+        Snackbar.make(findViewById(android.R.id.content),
+                getString(mainTextStringId),
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(actionStringId), listener).show();
+    }
+
     @Override
     public void onLocationChanged(Location location) {
+        Log.d(TAG, "location changed");
         updateLocation(location);
     }
 

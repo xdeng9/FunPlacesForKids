@@ -3,6 +3,7 @@ package com.example.xialong.funplacesforkids.util;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import com.android.volley.Cache;
@@ -60,6 +61,33 @@ public class PlaceUtil {
         getRequestQueue().add(req);
     }
 
+    public static void fetchPlaces(final Context context){
+        Thread placeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Cursor cursor = context.getContentResolver().query(
+                        PlaceContract.PlaceEntry.CONTENT_URI,
+                        null,
+                        PlaceContract.PlaceEntry.COLUMN_ISFAV + " =?",
+                        new String[]{"0"},
+                        null
+                );
+                if(cursor == null || cursor.getCount()==0){
+                    for(int i=0; i< Util.getPlaceTypes().size(); i++){
+                        startVolleyRequest(context, Util.getPlaceTypes().get(i));
+                    }
+                }else{
+                    context.getContentResolver().delete(PlaceContract.PlaceEntry.CONTENT_URI, null, null);
+                    for(int i=0; i< Util.getPlaceTypes().size(); i++){
+                        startVolleyRequest(context, Util.getPlaceTypes().get(i));
+                    }
+                }
+                cursor.close();
+            }
+        });
+        placeThread.start();
+    }
+
     public static void startVolleyRequest(final Context context, final String placeType) {
         String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"+location+"&radius=45000&types=" + placeType + KEY;
@@ -69,7 +97,6 @@ public class PlaceUtil {
             public void onResponse(JSONObject result) {
                 try{
                     ContentResolver resolver = context.getContentResolver();
-                    //resolver.delete(PlaceContract.PlaceEntry.CONTENT_URI, null, null);
                     ContentValues[] contentValues = getPlaces(result.toString(), placeType);
                     Log.d(TAG, "contentvalues # = "+contentValues.length);
                     resolver.bulkInsert(PlaceContract.PlaceEntry.CONTENT_URI, contentValues);

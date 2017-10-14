@@ -50,7 +50,7 @@ public class TabFragment extends Fragment implements
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
         mAdapter = new PlaceAdapter(getContext());
-        PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
+        //PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
     }
 
     @Override

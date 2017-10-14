@@ -23,6 +23,7 @@ public class Util {
     public static final double SF_LON =-122.4;
     private static double mLat = SF_LAT;
     private static double mLon = SF_LON;
+    private static String mCity = "San Francisco";
 
     private static final ArrayList<String> tabNames = new ArrayList<String>() {{
         add("Amusement Parks");
