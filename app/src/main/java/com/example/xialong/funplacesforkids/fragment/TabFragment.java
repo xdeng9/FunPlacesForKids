@@ -28,12 +28,10 @@ import com.example.xialong.funplacesforkids.util.Util;
 import org.json.JSONException;
 
 public class TabFragment extends Fragment implements
-        PlaceUtil.PlaceCallback,
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_POSITION = "position";
     private int mPosition;
-    private Place[] mPlaces;
     private TextView mTextView;
     private RecyclerView mRecyclerView;
     private PlaceAdapter mAdapter;
@@ -51,7 +49,8 @@ public class TabFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
-        PlaceUtil.startVolleyRequest(getContext(), TabFragment.this, Util.getPlaceTypes().get(mPosition));
+        mAdapter = new PlaceAdapter(getContext());
+        PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
     }
 
     @Override
@@ -64,26 +63,6 @@ public class TabFragment extends Fragment implements
         mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
         return rootView;
-    }
-
-    @Override
-    public void getResponse(String result) {
-//        try {
-//           // mPlaces = PlaceUtil.getPlaces(result);
-//
-//            if(mPlaces!=null && mPlaces.length!=0){
-//                mTextView.setVisibility(View.GONE);
-//                Log.d(TAG, mPlaces.length + "");
-//                Log.d(TAG, mPlaces[0].getPlaceAddress() + " " + mPlaces[0].getPlaceName() + " " + mPlaces[0].getPlaceImageUrl()
-//                        + " " + mPlaces[0].getPlaceRating()+ " "+mPlaces[0].getLatitude()+" "+mPlaces[0].getLongitude()+" "+mPlaces[0].getPlaceId());
-//            }else{
-//                mTextView.setVisibility(View.VISIBLE);
-//            }
-//        } catch (JSONException e) {
-//            Log.e(TAG, e.getMessage(), e);
-//            e.printStackTrace();
-//        }
-//        setupRecyclerView();
     }
 
     @Override
@@ -115,7 +94,6 @@ public class TabFragment extends Fragment implements
 
     public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> {
 
-        private Place[] items;
         private Context mContext;
         private Cursor mCursor;
 

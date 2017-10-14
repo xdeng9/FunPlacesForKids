@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        //updateLocation(Util.getLocation(MainActivity.this));
         checkPermission();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
