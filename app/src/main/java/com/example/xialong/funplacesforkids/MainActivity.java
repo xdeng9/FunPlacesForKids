@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         preferences = this.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("city", "Unknown");
-        editor.commit();
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putString("city", "Unknown");
+//        editor.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -254,11 +254,14 @@ public class MainActivity extends AppCompatActivity implements
     private void updatePreference(Location location) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("city", Util.getCity(MainActivity.this, location.getLatitude(), location.getLongitude()));
+        editor.commit();
     }
 
     @Override
     public void onLocationChanged(Location location) {
         String currentCity = preferences.getString("city", "Unknown");
+        Log.d("pref_city = ", currentCity);
+        Log.d("loc_city =", Util.getCity(MainActivity.this, location.getLatitude(), location.getLongitude()));
         Log.d("city changed? ", Util.cityChanged(MainActivity.this, location, currentCity) + "");
         if (Util.emptyData(MainActivity.this) || Util.cityChanged(MainActivity.this, location, currentCity)) {
             updatePreference(location);
