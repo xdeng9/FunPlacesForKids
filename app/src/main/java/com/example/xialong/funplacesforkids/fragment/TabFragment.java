@@ -1,6 +1,7 @@
 package com.example.xialong.funplacesforkids.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -8,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -19,7 +21,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.xialong.funplacesforkids.DetailActivity;
 import com.example.xialong.funplacesforkids.R;
+import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.data.PlaceContract;
 import com.example.xialong.funplacesforkids.util.Util;
 
@@ -99,6 +103,7 @@ public class TabFragment extends Fragment implements
             public final TextView mAddressName;
             public final RatingBar mRatingBar;
             public final TextView mDistance;
+            public final CardView mCardView;
 
             public ViewHolder(View view) {
                 super(view);
@@ -108,6 +113,7 @@ public class TabFragment extends Fragment implements
                 mAddressName = (TextView) view.findViewById(R.id.place_name);
                 mRatingBar = (RatingBar) view.findViewById(R.id.place_rating);
                 mDistance = (TextView) view.findViewById(R.id.distance);
+                mCardView = (CardView) view.findViewById(R.id.card_view);
             }
         }
 
@@ -132,6 +138,7 @@ public class TabFragment extends Fragment implements
             String imageUrl = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_IMAGE_URL));
             double lat = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LATITUDE));
             double lon = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LONGITUDE));
+            String id = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACE_ID));
 
             holder.mAddressName.setText(name);
             holder.mAddress.setText(address);
@@ -149,6 +156,16 @@ public class TabFragment extends Fragment implements
                         .into(holder.mImageView);
             }
             holder.mDistance.setText(Util.getDistance(lat, lon) + " mi");
+
+            final Place place = new Place(name, imageUrl, rating, address, lat, lon, id);
+            holder.mCardView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, DetailActivity.class);
+                    intent.putExtra("key", place);
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         @Override
