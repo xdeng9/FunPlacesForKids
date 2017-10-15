@@ -32,12 +32,16 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme"></activity>
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
         <provider
-            android:authorities="com.example.xialong.funplacesforkids"
             android:name=".data.PlaceProvider"
-            android:exported="false"/>
+            android:authorities="com.example.xialong.funplacesforkids"
+            android:exported="false" />
     </application>
 
 </manifest>
