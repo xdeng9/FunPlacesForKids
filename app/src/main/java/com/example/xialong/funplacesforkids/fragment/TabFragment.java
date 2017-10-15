@@ -20,12 +20,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.R;
-import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.data.PlaceContract;
-import com.example.xialong.funplacesforkids.util.PlaceUtil;
 import com.example.xialong.funplacesforkids.util.Util;
-
-import org.json.JSONException;
 
 public class TabFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -50,7 +46,6 @@ public class TabFragment extends Fragment implements
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_POSITION);
         mAdapter = new PlaceAdapter(getContext());
-        //PlaceUtil.startVolleyRequest(getContext(), Util.getPlaceTypes().get(mPosition));
     }
 
     @Override
@@ -117,7 +112,6 @@ public class TabFragment extends Fragment implements
         }
 
         public PlaceAdapter(Context context) {
-            //items = places;
             mContext = context;
         }
 

@@ -11,12 +11,14 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
+        NavigationView.OnNavigationItemSelectedListener,
         WeatherUtil.Callback {
 
     private GoogleApiClient mGoogleApiClient;
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private WeatherUtil weather;
+    private DrawerLayout mDrawer;
     SharedPreferences preferences;
 
     @Override
@@ -105,11 +110,36 @@ public class MainActivity extends AppCompatActivity implements
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home){}
+
+        mDrawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     private void checkPermission() {
@@ -189,7 +219,8 @@ public class MainActivity extends AppCompatActivity implements
             case REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   //updateLocation(Util.getLocation(MainActivity.this));
+                    updatePreference(Util.getLocation(MainActivity.this));
+                    updateLocation(Util.getLocation(MainActivity.this));
                 } else {
                     showSnackbar(R.string.permission_denied_explanation, R.string.settings,
                             new View.OnClickListener() {
@@ -220,15 +251,18 @@ public class MainActivity extends AppCompatActivity implements
                 .setAction(getString(actionStringId), listener).show();
     }
 
+    private void updatePreference(Location location) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("city", Util.getCity(MainActivity.this, location.getLatitude(), location.getLongitude()));
+    }
+
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "location changed");
         String currentCity = preferences.getString("city", "Unknown");
-        Log.d("city changed? ", Util.cityChanged(MainActivity.this, location, currentCity)+"");
-        if(Util.emptyData(MainActivity.this) || Util.cityChanged(MainActivity.this, location, currentCity)){
+        Log.d("city changed? ", Util.cityChanged(MainActivity.this, location, currentCity) + "");
+        if (Util.emptyData(MainActivity.this) || Util.cityChanged(MainActivity.this, location, currentCity)) {
+            updatePreference(location);
             updateLocation(location);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("city", Util.getCity(MainActivity.this, location.getLatitude(), location.getLongitude()));
         }
     }
 

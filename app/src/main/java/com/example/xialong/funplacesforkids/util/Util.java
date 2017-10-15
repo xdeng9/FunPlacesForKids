@@ -84,18 +84,18 @@ public class Util {
         return isEmpty;
     }
 
-//    public static String getCityLocation(Context context) {
-//        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-//        Criteria criteria = new Criteria();
-//        String bestProvider = locationManager.getBestProvider(criteria, true);
-//        int permissionCheck = ContextCompat.checkSelfPermission(context,
-//                Manifest.permission.ACCESS_COARSE_LOCATION);
-//        Location location = null;
-//        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-//            location = locationManager.getLastKnownLocation(bestProvider);
-//        }
-//        return getCity(context, location.getLatitude(), location.getLongitude());
-//    }
+    public static Location getLocation(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, true);
+        int permissionCheck = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        Location location = null;
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            location = locationManager.getLastKnownLocation(bestProvider);
+        }
+        return location;
+    }
 
     public static String formatTemp(String temp) {
         int buffer = (int) Double.parseDouble(temp);
