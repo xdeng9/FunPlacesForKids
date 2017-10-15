@@ -3,6 +3,10 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_setting">Settings</string>
+    <string name="nav_menu_fav">Favorites</string>
+    <string name="nav_menu_rate">Rate App</string>
     <string name="title_activity_detail">DetailActivity</string>
 
     <string name="permission_rationale">Location permission is needed for core functionality</string>
