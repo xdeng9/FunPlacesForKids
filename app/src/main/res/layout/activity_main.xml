@@ -18,6 +18,7 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/activity_main_drawer"
         android:theme="@style/DrawerStyle"
+        app:headerLayout="@layout/nav_header_main"
         android:focusable="true" />
 
 </android.support.v4.widget.DrawerLayout>

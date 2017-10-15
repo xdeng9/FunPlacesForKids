@@ -3,15 +3,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
             android:title="@string/nav_menu_home"/>
         <item
             android:id="@+id/nav_fav"
+            android:icon="@drawable/ic_favorite"
             android:title="@string/nav_menu_fav"/>
         <item
             android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/nav_menu_setting" />
         <item
             android:id="@+id/nav_rate"
+            android:icon="@drawable/ic_rate"
             android:title="@string/nav_menu_rate"/>
     </group>
 </menu>

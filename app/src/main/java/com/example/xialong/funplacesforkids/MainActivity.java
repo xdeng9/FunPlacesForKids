@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         preferences = this.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putString("city", "Unknown");
-//        editor.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -266,6 +263,10 @@ public class MainActivity extends AppCompatActivity implements
         if (Util.emptyData(MainActivity.this) || Util.cityChanged(MainActivity.this, location, currentCity)) {
             updatePreference(location);
             updateLocation(location);
+        }else{
+            currentLocation.setText(Util.getCity(this, location.getLatitude(), location.getLongitude()));
+            weather = new WeatherUtil(this);
+            weather.execute(location.getLatitude(), location.getLongitude());
         }
     }
 
