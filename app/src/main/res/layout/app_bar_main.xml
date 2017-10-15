@@ -67,6 +67,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_margin="12dp"
+            android:elevation="8dp"
             android:background="@drawable/search_bar_background">
 
             <android.support.v7.widget.Toolbar

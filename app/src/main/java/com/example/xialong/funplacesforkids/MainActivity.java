@@ -1,7 +1,9 @@
 package com.example.xialong.funplacesforkids;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -58,11 +60,17 @@ public class MainActivity extends AppCompatActivity implements
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private WeatherUtil weather;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = this.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("city", "Unknown");
+        editor.commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -159,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d(TAG, "onConnected called");
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         mLocationRequest.setInterval(3000000);
@@ -182,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements
             case REQUEST_CODE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   updateLocation(Util.getLocation(MainActivity.this));
+                   //updateLocation(Util.getLocation(MainActivity.this));
                 } else {
                     showSnackbar(R.string.permission_denied_explanation, R.string.settings,
                             new View.OnClickListener() {
@@ -216,7 +223,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "location changed");
-        updateLocation(location);
+        String currentCity = preferences.getString("city", "Unknown");
+        Log.d("city changed? ", Util.cityChanged(MainActivity.this, location, currentCity)+"");
+        if(Util.emptyData(MainActivity.this) || Util.cityChanged(MainActivity.this, location, currentCity)){
+            updateLocation(location);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("city", Util.getCity(MainActivity.this, location.getLatitude(), location.getLongitude()));
+        }
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
