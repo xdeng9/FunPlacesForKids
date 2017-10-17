@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(mPlace.getPlaceName());
         loadBackdrop();
-        
+
     }
 
     private void loadBackdrop() {
