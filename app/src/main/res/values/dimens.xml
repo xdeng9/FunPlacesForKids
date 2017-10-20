@@ -9,4 +9,5 @@
     <dimen name="cardview_layout_margin">4dp</dimen>
 
     <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="progress_bar_size">42dp</dimen>
 </resources>
