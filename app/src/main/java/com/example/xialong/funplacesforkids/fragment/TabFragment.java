@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class TabFragment extends Fragment implements
     private TextView mTextView;
     private RecyclerView mRecyclerView;
     private PlaceAdapter mAdapter;
+    private ProgressBar mProgressBar;
 
     public static TabFragment newInstance(int position) {
         TabFragment f = new TabFragment();
@@ -57,6 +59,8 @@ public class TabFragment extends Fragment implements
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mAdapter = new PlaceAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progress_bar);
+        showLoading();
         getLoaderManager().initLoader(0, null, this);
         return rootView;
     }
@@ -75,12 +79,19 @@ public class TabFragment extends Fragment implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mProgressBar.setVisibility(View.INVISIBLE);
         if(cursor!=null && cursor.getCount()!=0){
             mTextView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
         } else{
                 mTextView.setVisibility(View.VISIBLE);
             }
         mAdapter.swapCursor(cursor);
+    }
+
+    private void showLoading() {
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
