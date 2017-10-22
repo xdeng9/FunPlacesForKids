@@ -11,7 +11,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.content.ContextCompat;
 
-import com.example.xialong.funplacesforkids.MainActivity;
 import com.example.xialong.funplacesforkids.R;
 import com.example.xialong.funplacesforkids.data.PlaceContract;
 

@@ -18,7 +18,6 @@ import java.net.URL;
 public class WeatherUtil extends AsyncTask<Double, Void, String> {
 
     private Context context;
-    public static final String DEFAULT_LOCATION = "SAN FRANCISCO";
 
     public interface Callback {
         void updateWeather(String temperature);
