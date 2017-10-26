@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,6 +64,11 @@ public class DetailUtil extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
+        //parse json here
+        try {
+            JSONObject object = new JSONObject(result);
+        } catch (JSONException e) {
+            e.getMessage();
+        }
     }
 }
