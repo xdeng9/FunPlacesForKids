@@ -19,7 +19,7 @@ public class DetailUtil extends AsyncTask<String, Void, String> {
     private static final String KEY = "&key=AIzaSyAj4OYy0O9hkAPpgc7jzpc5LpwgpGGJkb8";
     private Context mContext;
 
-    private DetailUtil(Context context){
+    public DetailUtil(Context context){
         mContext = context;
     }
 

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.data.Place;
+import com.example.xialong.funplacesforkids.util.DetailUtil;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mPlace = intent.getExtras().getParcelable("key");
         loadBackdrop();
+
+        DetailUtil detailUtil = new DetailUtil(this);
         Log.d("place id=",mPlace.getPlaceId());
     }
 
