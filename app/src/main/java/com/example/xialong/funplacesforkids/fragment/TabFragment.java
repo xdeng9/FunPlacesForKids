@@ -169,8 +169,10 @@ public class TabFragment extends Fragment implements
             holder.mCardView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
+                    Bundle bundle = new Bundle();
                     Intent intent = new Intent(mContext, DetailActivity.class);
-                    intent.putExtra("key", place);
+                    bundle.putParcelable("key", place);
+                    intent.putExtra("bundle", bundle);
                     mContext.startActivity(intent);
                 }
             });

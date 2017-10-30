@@ -26,8 +26,9 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Bundle bundle = getIntent().getBundleExtra("bundle");
         Intent intent = getIntent();
-        mPlace = intent.getExtras().getParcelable("key");
+        mPlace = bundle.getParcelable("key");
         loadBackdrop();
 
         DetailUtil detailUtil = new DetailUtil(this);
