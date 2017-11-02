@@ -147,6 +147,7 @@ public class TabFragment extends Fragment implements
             double lat = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LATITUDE));
             double lon = mCursor.getDouble(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_LONGITUDE));
             String id = mCursor.getString(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_PLACE_ID));
+            int fav = mCursor.getInt(mCursor.getColumnIndex(PlaceContract.PlaceEntry.COLUMN_ISFAV));
 
             holder.mAddressName.setText(name);
             holder.mAddress.setText(address);
@@ -165,7 +166,7 @@ public class TabFragment extends Fragment implements
             }
             holder.mDistance.setText(Util.getDistance(lat, lon) + " mi");
 
-            final Place place = new Place(name, imageUrl, rating, address, lat, lon, id);
+            final Place place = new Place(name, imageUrl, rating, address, lat, lon, id, fav);
             holder.mCardView.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
