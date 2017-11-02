@@ -116,9 +116,7 @@ public class PlaceUtil {
     public static ContentValues[] getPlaces(String result, String placeType) throws JSONException {
         JSONObject object = new JSONObject(result);
         JSONArray jArray = object.getJSONArray("results");
-        Place[] places = new Place[jArray.length()];
         ContentValues[] placeContentValues = new ContentValues[jArray.length()];
-        Place place;
         String rating;
         String imageUrl;
         String photoReference;
@@ -144,8 +142,7 @@ public class PlaceUtil {
             }
 
             String address = placeDetail.getString("vicinity");
-            place = new Place(name, imageUrl, rating, address, lat, lon, id);
-            places[i] = place;
+
             ContentValues row = new ContentValues();
             row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_ID, id);
             row.put(PlaceContract.PlaceEntry.COLUMN_PLACE_NAME, name);

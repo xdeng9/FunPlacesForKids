@@ -62,7 +62,7 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailUtil detailUtil = new DetailUtil(this);
         Log.d("place id=", mPlace.getPlaceId());
-
+        mIsFav = mPlace.getFav() == 0? false : true;
     }
 
     private void loadBackdrop() {
@@ -76,6 +76,16 @@ public class DetailActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.share_item);
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         setShareIntent(getShareIntent());
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        MenuItem fav = menu.findItem(R.id.fav_item);
+        MenuItem unfav = menu.findItem(R.id.unfav_item);
+
+        fav.setVisible(mIsFav);
+        unfav.setVisible(!mIsFav);
         return true;
     }
 
