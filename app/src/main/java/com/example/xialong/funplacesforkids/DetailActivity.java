@@ -1,11 +1,16 @@
 package com.example.xialong.funplacesforkids;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -16,6 +21,7 @@ import com.example.xialong.funplacesforkids.util.DetailUtil;
 public class DetailActivity extends AppCompatActivity {
 
     private Place mPlace;
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,4 +68,26 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(this).load(mPlace.getPlaceImageUrl()).centerCrop().into(imageView);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail, menu);
+        MenuItem item = menu.findItem(R.id.share_item);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+        setShareIntent(getShareIntent());
+        return true;
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    private Intent getShareIntent(){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, mPlace.getPlaceName());
+        intent.putExtra(Intent.EXTRA_TEXT, mPlace.getPlaceAddress());
+        return intent;
+    }
 }
