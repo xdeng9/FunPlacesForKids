@@ -12,8 +12,10 @@ public class Place implements Parcelable {
     private double latitude;
     private double longitude;
     private String placeId;
+    private int fav;
 
-    public Place(String placeName, String placeImageUrl, String placeRating, String placeAddress, double latitude, double longitude, String placeId){
+    public Place(String placeName, String placeImageUrl, String placeRating,
+                 String placeAddress, double latitude, double longitude, String placeId, int fav){
         this.placeName = placeName;
         this.placeImageUrl = placeImageUrl;
         this.placeRating = placeRating;
@@ -21,6 +23,7 @@ public class Place implements Parcelable {
         this.latitude = latitude;
         this.longitude = longitude;
         this.placeId = placeId;
+        this.fav = fav;
     }
 
     public String getPlaceName(){
@@ -45,6 +48,8 @@ public class Place implements Parcelable {
 
     public String getPlaceId() { return placeId; }
 
+    public int getFav() { return fav; }
+
     public static final Parcelable.Creator<Place> CREATOR
             = new Parcelable.Creator<Place>() {
         public Place createFromParcel(Parcel in) {
@@ -57,7 +62,7 @@ public class Place implements Parcelable {
     };
 
     private Place(Parcel in) {
-        String[] data = new String[7];
+        String[] data = new String[8];
         in.readStringArray(data);
         placeName = data[0];
         placeImageUrl = data[1];
@@ -66,6 +71,7 @@ public class Place implements Parcelable {
         latitude = Double.parseDouble(data[4]);
         longitude = Double.parseDouble(data[5]);
         placeId = data[6];
+        fav = Integer.parseInt(data[7]);
     }
 
     @Override
@@ -75,7 +81,7 @@ public class Place implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringArray(new String[]{placeName,
-        placeImageUrl, placeRating, placeAddress, String.valueOf(latitude), String.valueOf(longitude), placeId});
+        parcel.writeStringArray(new String[]{placeName, placeImageUrl, placeRating, placeAddress,
+                String.valueOf(latitude), String.valueOf(longitude), placeId, String.valueOf(fav)});
     }
 }

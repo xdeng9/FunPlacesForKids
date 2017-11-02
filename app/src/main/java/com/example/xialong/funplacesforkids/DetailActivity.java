@@ -22,6 +22,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private Place mPlace;
     private ShareActionProvider mShareActionProvider;
+    private boolean mIsFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class DetailActivity extends AppCompatActivity {
 
         DetailUtil detailUtil = new DetailUtil(this);
         Log.d("place id=", mPlace.getPlaceId());
+
     }
 
     private void loadBackdrop() {
