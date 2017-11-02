@@ -4,19 +4,19 @@
 
     <item
         android:id="@+id/share_item"
-        android:title="@string/action_share"
+        android:title="Share"
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/fav_item"
-        android:title="@string/action_fav"
+        android:title="Bookmark"
         android:icon="@drawable/ic_favorite_full"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/unfav_item"
-        android:title="@string/action_fav"
+        android:title="Bookmark"
         android:icon="@drawable/ic_favorite_empty"
         app:showAsAction="always" />
 </menu>
