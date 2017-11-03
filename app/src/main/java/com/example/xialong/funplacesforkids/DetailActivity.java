@@ -47,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle("Title");
+                    collapsingToolbar.setTitle(mPlace.getPlaceName());
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(" ");
