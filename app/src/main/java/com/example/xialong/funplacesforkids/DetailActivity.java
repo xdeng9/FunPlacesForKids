@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.data.Place;
@@ -89,6 +90,29 @@ public class DetailActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            case R.id.fav_item:
+                mIsFav = false;
+                invalidateOptionsMenu();
+                //update database here
+                displayToast();
+                return true;
+            case R.id.unfav_item:
+                mIsFav = true;
+                invalidateOptionsMenu();
+                //update database here
+                displayToast();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
@@ -101,5 +125,13 @@ public class DetailActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, mPlace.getPlaceName());
         intent.putExtra(Intent.EXTRA_TEXT, mPlace.getPlaceAddress());
         return intent;
+    }
+
+    private void displayToast(){
+        if(mIsFav){
+            Toast.makeText(this, "Bookmarked!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Removed Bookmark.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
