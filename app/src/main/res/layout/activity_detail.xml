@@ -49,6 +49,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <TextView
+            android:id="@+id/place_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="name place holder"
+            android:layout_margin="12dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
         </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
