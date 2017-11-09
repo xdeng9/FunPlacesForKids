@@ -13,22 +13,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.xialong.funplacesforkids.data.Place;
 import com.example.xialong.funplacesforkids.util.DetailUtil;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     private Place mPlace;
     private ShareActionProvider mShareActionProvider;
     private boolean mIsFav;
+    @BindView(R.id.place_name) TextView placeName;
+    @BindView(R.id.place_address) TextView placeAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,9 +64,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+//        placeName = (TextView) findViewById(R.id.place_name);
+//        placeAddress = (TextView) findViewById(R.id.place_address);
         Bundle bundle = getIntent().getBundleExtra("bundle");
         mPlace = bundle.getParcelable("key");
         loadBackdrop();
+        placeName.setText(mPlace.getPlaceName());
+        placeAddress.setText(mPlace.getPlaceAddress());
 
         DetailUtil detailUtil = new DetailUtil(this);
         Log.d("place id=", mPlace.getPlaceId());
