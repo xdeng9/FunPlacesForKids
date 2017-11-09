@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     private boolean mIsFav;
     @BindView(R.id.place_name) TextView placeName;
     @BindView(R.id.place_address) TextView placeAddress;
+    @BindView(R.id.place_rating) RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class DetailActivity extends AppCompatActivity {
         loadBackdrop();
         placeName.setText(mPlace.getPlaceName());
         placeAddress.setText(mPlace.getPlaceAddress());
+        ratingBar.setRating(Float.parseFloat(mPlace.getPlaceRating()));
 
         DetailUtil detailUtil = new DetailUtil(this);
         Log.d("place id=", mPlace.getPlaceId());
