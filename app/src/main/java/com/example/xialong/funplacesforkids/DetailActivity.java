@@ -1,6 +1,7 @@
 package com.example.xialong.funplacesforkids;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -147,5 +149,15 @@ public class DetailActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Removed Bookmark.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void getCall(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:0123456789"));
+        startActivity(intent);
+    }
+
+    public void getDirection(View view) {
+
     }
 }
