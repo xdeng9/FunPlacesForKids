@@ -88,6 +88,35 @@
                         android:layout_margin="12dp"
                         android:text="Hours" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_alignParentLeft="true"
+                        android:text="hours place holder"
+                        android:layout_marginBottom="12dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/primaryText"
+                        android:layout_below="@+id/hours_text"/>
+
+                    <ImageView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/status"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/ic_access_time"/>
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12dp"
+                        android:layout_alignParentRight="true"
+                        android:text="status" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
