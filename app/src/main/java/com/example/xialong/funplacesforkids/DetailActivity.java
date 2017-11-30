@@ -67,9 +67,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        placeName = (TextView) findViewById(R.id.place_name);
-//        placeAddress = (TextView) findViewById(R.id.place_address);
+        
         Bundle bundle = getIntent().getBundleExtra("bundle");
         mPlace = bundle.getParcelable("key");
         loadBackdrop();
