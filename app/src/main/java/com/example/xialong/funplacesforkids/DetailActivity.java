@@ -67,7 +67,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-        
+
         Bundle bundle = getIntent().getBundleExtra("bundle");
         mPlace = bundle.getParcelable("key");
         loadBackdrop();
@@ -157,7 +157,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public void getDirection(View view) {
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?daddr=20.5666,45.345"));
+                Uri.parse("http://maps.google.com/maps?daddr="+mPlace.getPlaceAddress()));
         startActivity(intent);
     }
 }
