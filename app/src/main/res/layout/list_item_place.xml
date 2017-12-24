@@ -59,7 +59,8 @@
                 android:paddingBottom="12dp"
                 android:paddingTop="8dp"
                 android:layout_marginRight="12dp"
-                android:gravity="right"/>
+                android:gravity="right"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 
