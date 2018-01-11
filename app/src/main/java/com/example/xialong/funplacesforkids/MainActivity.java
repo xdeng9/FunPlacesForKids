@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int REQUEST_CODE = 100;
     private TextView currentLocation, currentTemperature;
     private ImageView weatherIcon, backdrop;
@@ -101,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements
         checkPermission();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
