@@ -1,4 +1,4 @@
 # Fun Places For Kids
 
-## LICENSE
+## License
 This work is released under the MIT License. 
