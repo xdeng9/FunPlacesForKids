@@ -1,4 +1,4 @@
-# Fun Places For Kids
+# Fun Places
 An Android app that suggests nearby parks, play grounds, museums, and more. Powered by Google's Map API.
 
 ## License
