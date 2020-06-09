@@ -4,7 +4,7 @@ An Android app that suggests nearby parks, play grounds, museums, and more. Powe
 ## Fetching nearby places
 ```Java
 String location = "location="+Util.getCurrentLat()+","+Util.getCurrentLon();
-        JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new    Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject result) {
                 try{
